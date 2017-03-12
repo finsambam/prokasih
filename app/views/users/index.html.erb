@@ -1,0 +1,47 @@
+<div class="header-content">
+  <h1 class="page-header">Daftar User</h1>
+</div>
+<table id="user-table" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>Email</th>
+      <th>Hak Akses</th>
+    </tr>
+  </thead>
+  <% @users.each do |u| %>
+    <tr>
+      <td>
+        <%= "#{u.name}" %>
+        <div class="btn-group" style="float: right;">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><%= link_to_if(can?(:edit, User), "Ubah", edit_user_path(u.id)) {} %></li>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to_if(can?(:delete, u), "Hapus", u, :data => {:confirm => 'Are you sure?'}, :method => :delete) {} %></li>
+          </ul>
+        </div>
+      </td>
+      <td><%= "#{u.email}" %></td>
+      <td><%= "#{u.roles.collect{|r| r.name}}" %></td>
+    </tr>
+  <% end %>
+</table>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#user-table').DataTable({
+      dom: "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>",
+      buttons: [
+        {
+          text: 'Tambah',
+          className: 'btn btn-success',
+          action: function(e, dt, node, config) {
+            window.location.href = 'users/new';
+          }
+        }
+      ]
+    });
+  });
+</script>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  river_name: MyString
+  spot_name: MyString
+  address: MyString
+  longitude: 1.5
+  latitude: 1.5
+
+two:
+  code: MyString
+  river_name: MyString
+  spot_name: MyString
+  address: MyString
+  longitude: 1.5
+  latitude: 1.5

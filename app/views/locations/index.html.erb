@@ -1,0 +1,59 @@
+<div class="header-content">
+  <h2 class="page-header">Daftar Lokasi</h2>
+</div>
+<table id="location-table" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Kode</th>
+      <th>Nama Sungai</th>
+      <th>Titik Lokasi</th>
+      <th>Alamat</th>
+      <th>Koordinat</th>
+    </tr>
+  </thead>
+  <% @locations.each do |l| %>
+    <tr>
+      <td><%= "#{l.code}" %></td>
+      <td>
+        <%= "#{l.river_name}" %>
+        <div class="btn-group" style="float: right;">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <% if(can?(:edit, Location)) %>
+              <li>
+                <a href="#" class="edit-location" data-id= <%= l.id %> > Ubah </a>
+              </li>
+            <% end %>
+            <li role="separator" class="divider"></li>
+            <li><%= link_to_if(can?(:delete, l), "Hapus", l, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
+          </ul>
+        </div>
+      </td>
+      <td><%= "#{l.spot_name}" %></td>
+      <td><%= "#{l.address}" %></td>
+      <td><%= "#{l.latitude}/#{l.longitude}" %></td>
+    </tr>
+  <% end %>
+</table>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#location-table').DataTable({
+      dom: "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>",
+      buttons: [
+        {
+          text: 'Tambah',
+          className: 'btn btn-success',
+          action: function(e, dt, node, config) {
+            window.location.href = '/locations/new';
+          }
+        }
+      ]
+    });
+    $('.edit-location').click(function(){
+      var id = this.getAttribute("data-id");
+      window.location.href = '/locations/' + id + '/edit';
+    });
+  });
+</script>

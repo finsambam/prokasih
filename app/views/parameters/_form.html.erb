@@ -1,0 +1,26 @@
+<%= form_for(@parameter, html:{class: 'form-horizontal'}) do |f| %>
+  <div class="form-group">
+    <%= f.label :name, "Nama Parameter", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :parameter_category_id, "Kategori", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.select :parameter_category_id, @parameter_categories.collect { |c| [ c.name, c.id ] }, {}, {class: "form-control"} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :unit, "Satuan", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :unit, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-8">
+      <%= link_to "Batal", { controller: "parameters", action: "index" }, class: "btn btn-default" %>
+      <%= f.submit "Simpan", class: "btn btn-success" %>
+    </div>
+  </div>
+<% end %>

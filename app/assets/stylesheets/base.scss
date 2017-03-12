@@ -1,0 +1,168 @@
+/*Body styles*/
+body.custom-background {
+	background-color: #002600;
+}
+
+/*Override bootstrap navigation */
+.custom-nav{
+  border-radius: 0;
+}
+.custom-nav a{
+	color: #fff;
+}
+.custom-nav .dropdown-menu a{
+	color: #fff;	
+}
+.custom-nav .dropdown.open>a{
+	background-color: #449d44;
+	border-color: #398439;
+}
+.nav-color{
+	color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+.nav-color .navbar-toggle{
+	background-color: #5cb85c;
+  border-color: #398439;	
+}
+.nav-color .navbar-toggle .icon-bar{
+	background-color: #398439;
+}
+.nav-color li a:hover, .nav-color li a:active{
+  color: #fff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+
+/*Override bootstrap container */
+.container {
+  max-width: 1000px;
+	min-height: 800px; 
+	margin-top: 25px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.container > #page-content {
+	padding-left: 15px;
+	padding-right: 15px;	
+} 
+
+#page-wrapper {
+	background-color: #fff;
+}
+
+/*Header styles*/
+.top-banner {
+	height: 120px;
+	margin: 0px auto;
+	background: image-url('logo-menlh-ri.png');
+}
+
+/*fixed affix navifation*/
+.affix {
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  transition: all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+}
+
+.affix a {
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
+.affix + .top-banner {
+  padding-top: 70px;
+}
+
+/*error tooltip*/
+#error_explanation {
+  color: #a94442;
+  ul {
+    color: #a94442;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+#map {
+  height: 290px;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px;
+  border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #ccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+  border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
+
+.red{
+  color: red;
+}
+
+.black{
+  color: black;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+#result-container {
+  margin-top:20px !important;
+}
+
+table>thead>tr>th {
+  text-align: center;
+  vertical-align: middle !important;
+}

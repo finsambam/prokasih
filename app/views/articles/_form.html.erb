@@ -1,0 +1,31 @@
+<%= form_for(@article, html:{class: 'form-horizontal'}) do |f| %>
+  <div class="form-group">
+    <%= f.label :title, "Judul", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :content, "Konten", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_area :content, class: "wysiwyg-editor form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-8">
+      <%= link_to "Batal", { controller: "articles", action: "list" }, class: "btn btn-default" %>
+      <%= f.submit "Simpan", class: "btn btn-success" %>
+    </div>
+  </div>
+ 
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $('.wysiwyg-editor').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+
+  })
+</script>

@@ -1,0 +1,35 @@
+<%= render :partial => 'shared/error_messages', :locals => {:obj => @user} %>
+
+<h2 class="page-header"><%= @user == @current_user ? "Pengaturan Akun" : "Edit User" %></h2>
+ 
+<%= form_for(@user, :html => {:class => 'form-horizontal', :method => :put }) do |f| %>
+	<%= render :partial => 'user_fields', :locals => { :f => f } %>
+	
+	<div class="form-group">
+    <%= f.label :password, "Sandi", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.password_field :password, class: "form-control"%>
+      <span id="helpBlock" class="help-block">Jangan diisi bila anda tidak ingin mengubah sandi anda.</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "Konfirmasi Sandi", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.password_field :password_confirmation, class: "form-control"%>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :current_password, "Sandi", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.password_field :current_password, class: "form-control"%>
+      <span id="helpBlock" class="help-block">Silakan masukan sandi lama anda untuk konfirmasi</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-8">
+      <%= link_to "Batal", { controller: "users", action: "index" }, class: "btn btn-default" %>
+      <%= f.submit "Simpan", class: "btn btn-success" %>
+    </div>
+  </div>
+
+<% end %>

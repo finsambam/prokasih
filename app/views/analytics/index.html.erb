@@ -1,0 +1,64 @@
+<div class="header-content">
+  <h2 class="page-header">Daftar Data Analisa</h2>
+</div>
+<%= form_tag(filter_analytics_path(format: :js), method: 'get', remote: true, class: 'form-inline') do %>
+  <fieldset>
+    <div class="form-group">
+      <%= label_tag 'start_from', 'Dari' %>
+      <%= text_field_tag 'start_from', nil, class: 'form-control datepicker'%>
+      <%= hidden_field_tag 'start_from_date'%>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'end_to', 'Sampai' %>
+      <%= text_field_tag 'end_to', nil, class: 'form-control datepicker'%>
+      <%= hidden_field_tag 'end_to_date'%>
+    </div>
+    <%= submit_tag "Filter", class: "btn btn-success" %>
+  </fieldset>
+<% end %>
+<br />
+<table id="analytic-table" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Nama Sungai</th>
+      <th>Alamat</th>
+      <th>Periode</th>
+    </tr>
+  </thead>
+  <tbody id="analytic-list">
+    <%= render "list"%>
+  </tbody>
+</table>
+<script type="text/javascript">
+  $(document).ready(function() {
+    // init data table
+    $('#analytic-table').DataTable({
+      dom: "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>",
+      buttons: [
+        {
+          text: 'Tambah',
+          className: 'btn btn-success',
+          action: function(e, dt, node, config) {
+            window.location.href = '/analytics/new';
+          }
+        }
+      ]
+    });
+
+    // initialize datepicker
+    var dateElement = $('.datepicker').datepicker({
+      format: "MM yyyy",
+      startView: 1,
+      minViewMode: 1,
+      maxViewMode: 2
+    });
+
+    // set timestamp hiden element and hide datepicker when user change months
+    dateElement.on("changeMonth", function(e){
+      var elementId = e.target.id;
+      $('#'+elementId+'_date').val(e.date);
+      $(e.target).datepicker("hide");
+    });
+
+  });
+</script>

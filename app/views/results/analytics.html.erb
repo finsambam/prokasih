@@ -1,0 +1,78 @@
+<div class="header-content">
+  <h2 class="page-header">Data Hasil Analisa</h2>
+</div>
+<div class="col-md-12">
+  <div class="col-md-10">
+    <%= form_tag(results_get_analytics_path(format: :js), method: 'get', remote: true, class: 'form-inline', id: 'filter') do %>
+      <fieldset>
+        <div class="form-group">
+          <%= select_tag 'river_name', options_for_select(@rivers), prompt: "Pilih sungai", class: 'form-control'%>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag 'period', nil, placeholder: 'Periode', class: 'form-control datepicker'%>
+          <%= hidden_field_tag 'period_date'%>
+        </div>
+        <div class="form-group">
+          <%= select_tag 'criterium', options_for_select(@criteria.collect{ |c| [c.name, c.id] }), prompt: "Pilih kriteria", class: 'form-control'%>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <a href="#" class="btn btn-success">Unduh(PDF)</a>
+    <%= link_to 'Unduh(PDF)', results_save_analytic_as_pdf(:format => :pdf)%>
+  </div>
+</div>
+<div class="col-md-12" id="result-container">
+  <table class="table table-striped table-bordered">
+    <tr>
+      <td>Data tidak ditemukan</td>
+    </tr>
+  </table>
+</div>
+
+<script type="text/javascript">
+  $( document ).on('turbolinks:load', function() {
+    $("#river_name").change(function(){
+      if (isAllFieldFilled()) {
+        $('#filter').trigger('submit');
+      };
+    })
+
+    $("#period").change(function(){
+      if (isAllFieldFilled()) {
+        $('#filter').trigger('submit');
+      };
+    })
+
+    $("#criterium").change(function(){
+      if (isAllFieldFilled()) {
+        $('#filter').trigger('submit');
+      };
+    })
+    // initialize datepicker
+    var dateElement = $('.datepicker').datepicker({
+      format: "MM yyyy",
+      startView: 1,
+      minViewMode: 1,
+      maxViewMode: 2
+    });
+
+    // set timestamp hiden element and hide datepicker when user change months
+    dateElement.on("changeMonth", function(e){
+      var elementId = e.target.id;
+      $('#'+elementId+'_date').val(e.date);
+      $(e.target).datepicker("hide");
+    });
+  });
+
+  var isAllFieldFilled = function(){
+    var river = $("#river_name").val();
+    var period = $("#period").val();
+    var criterium = $("#criterium").val();
+    if (river !== "" && period !== "" && criterium !== "") {
+      return true;
+    };
+    return false;
+  }
+</script>

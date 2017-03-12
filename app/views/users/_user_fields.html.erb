@@ -1,0 +1,25 @@
+<div class="form-group">
+  <%= f.label :name, "Nama Lengkap", class: "col-sm-3 control-label" %>
+  <div class="col-sm-8">
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :email, "Email", class: "col-sm-3 control-label" %>
+  <div class="col-sm-8">
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+</div>
+ 
+<% if can? :read, Role %>
+	<div class="form-group">
+	  <%= f.label :role, "Administrator", class: "col-sm-3 control-label" %>
+	  <div class="col-sm-8">
+	    <div class="checkbox">
+        <label>
+          <%= check_box_tag("user[role_id]", @accessible_roles.first.id, @user.roles.include?(@accessible_roles.first)) %> Ya
+        </label>
+      </div>
+	  </div>
+	</div>
+<% end %>

@@ -1,0 +1,150 @@
+<%= form_for(@analytic, html:{class: 'form-horizontal'}) do |f| %>
+  <div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#general" aria-controls="home" role="tab" data-toggle="tab">General</a></li>
+      <% @parameter_categories.each do |category| %>
+        <li role="presentation"><a href=<%= '#'+category.name.downcase %> aria-controls="messages" role="tab" data-toggle="tab"><%= category.name%></a></li>
+      <% end %>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="general">
+        <br />
+        <div class="form-group">
+          <%= f.label :rever_name, "Nama Sungai", class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <select id="river-name" class="form-control">
+              <option>Pilih nama sungai</option>
+              <% @rivers.each do |river| %>
+                <option value='<%= river%>' <% if @analytic.id.present? && @analytic.location.river_name == river %> selected='selected' <% end %>><%= river%></option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :location_id, "Titik Lokasi", class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <%= f.select :location_id, {}, {include_blank: 'Pilih titik lokasi'}, {class: "form-control", disabled: "disabled"} %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :period, "Periode", class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <input type="text" class="form-control datepicker" id="period-datepicker">
+            <%= f.hidden_field :period%>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :criterium_id, "Kriteria", class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <%= f.select :criterium_id, @criteria.collect {|c| [ c.name, c.id ] }, {include_blank: 'Pilih kriteria'}, {class: "form-control"} %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-8">
+            <%= link_to "Batal", { controller: "analytics", action: "index" }, class: "btn btn-default" %>
+            <a class="btn btn-success btnNext">Lanjut</a>
+          </div>
+        </div>
+      </div>
+      <% @parameter_categories.each do |category| %>
+        <div id=<%= category.name.downcase %> role="tabpanel" class="tab-pane">
+          <br />
+          <% category.parameters.each do |param| %>
+            <%= f.fields_for :analytic_parameters, @analytic.analytic_parameters.find_or_initialize_by(parameter_id: param.id) do |cp| %>
+              <div class="form-group">
+                <%= cp.label :value, param.name, class: "col-sm-3 control-label" %>
+                <div class="col-sm-8">
+                  <%= cp.text_field :value, class: "form-control" %>
+                </div>
+                <%= cp.hidden_field :parameter_id, {:value => param.id} %>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-8">
+              <a class="btn btn-default btnPrevious">Kembali</a>
+              <% if category == @parameter_categories.last %>
+                <%= f.submit "Simpan", class: "btn btn-success" %>
+              <% else %>
+                <a class="btn btn-success btnNext">Lanjut</a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $( document ).on('turbolinks:load', function() {
+
+    $('.btnNext').click(function(){
+      $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
+
+    $('.btnPrevious').click(function(){
+      $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    });
+
+    // get location when user select river name
+    $('#river-name').change(getLocationByRiverName);
+
+    // initialize datepicker
+    var dateElement = $('.datepicker').datepicker({
+      format: "MM yyyy",
+      startView: 1,
+      minViewMode: 1,
+      maxViewMode: 2
+    });
+
+    // set timestamp hiden element and hide datepicker when user change months
+    dateElement.on("changeMonth", function(e){
+      $('#analytic_period').val(e.date);
+      $(e.target).datepicker("hide");
+    });
+
+    initLocation();
+  
+  });
+
+  var initLocation = function(){
+    <% if @analytic.location.present?%>
+      $('#river-name').val('<%= @analytic.location.river_name%>');
+      $( "#river-name" ).trigger( "change" );
+      $('.datepicker').datepicker('update', '<%= @analytic.period%>');
+    <% end %>
+  }
+
+  var getLocationByRiverName = function(){
+    var isLocationSelected = <%= @analytic.location.present? %> ;
+
+    $.ajax({
+      url: '<%= get_by_river_locations_path %>',
+      type: "GET",
+      data: {riverName: $('#river-name option:selected').text()},
+      beforeSend: (function(){
+        // TODO: add loading layer
+        $('#analytic_location_id').prop('disabled', 'disabled');
+        $('#analytic_location_id').html('');
+      }),
+      success: (function(response){
+        var x;
+        $('#analytic_location_id').append('<option value="">Pilih titik lokasi</option>');
+        for (x in response) {
+          $('#analytic_location_id').append('<option value="'+response[x].id+'">'+response[x].spot_name+'</option>');
+        }
+
+        if (isLocationSelected) {
+          $('#analytic_location_id').val('<%= @analytic.location_id %>');
+        }
+      }),
+      complete: (function(){
+        $('#analytic_location_id').removeAttr('disabled');
+      })
+    })
+  }
+</script>

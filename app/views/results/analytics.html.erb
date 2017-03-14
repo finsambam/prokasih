@@ -19,8 +19,7 @@
     <% end %>
   </div>
   <div class="col-md-2">
-    <a href="#" class="btn btn-success">Unduh(PDF)</a>
-    <%= link_to 'Unduh(PDF)', results_save_analytic_as_pdf(:format => :pdf)%>
+    <%= link_to 'Unduh(PDF)', results_save_analytic_as_pdf_path(:format => :pdf), :class => "btn btn-success"%>
   </div>
 </div>
 <div class="col-md-12" id="result-container">

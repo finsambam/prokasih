@@ -19,7 +19,7 @@
     <% end %>
   </div>
   <div class="col-md-2">
-    <%= link_to 'Unduh(PDF)', results_save_analytic_as_pdf_path(:format => :pdf), :class => "btn btn-success"%>
+    <%= link_to 'Unduh(PDF)', results_save_analytic_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-pdf", target: :_blank%>
   </div>
 </div>
 <div class="col-md-12" id="result-container">
@@ -49,7 +49,7 @@
         $('#filter').trigger('submit');
       };
     })
-    // initialize datepicker
+
     var dateElement = $('.datepicker').datepicker({
       format: "MM yyyy",
       startView: 1,

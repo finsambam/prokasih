@@ -1,3 +1,4 @@
+<h3 class="header"><%= "Hasil Analisis #{session[:params]["river_name"]} periode #{DateTime.parse(session[:params]["period_date"]).strftime("%B %Y ")}" %></h3>
 <div class="col-md-12" id="result-container">
   <%= render :partial => 'result_table.html.erb' %>
 </div>

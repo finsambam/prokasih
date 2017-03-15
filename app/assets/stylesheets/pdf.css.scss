@@ -1,5 +1,26 @@
-@import "vendor/assets/components/bootstrap-sass/assets/stylesheets/bootstrap-sprockets.css";
-@import "vendor/assets/components/bootstrap-sass/assets/stylesheets/bootstrap.css";
-@import "font-awesome/scss/font-awesome";
-@import "font-paths";
-@import "base";
+@import "bootstrap.css";
+
+.red{
+  color: red;
+}
+
+.black{
+  color: black;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+#result-container {
+  margin-top:20px !important;
+}
+
+table>thead>tr>th {
+  text-align: center;
+  vertical-align: middle !important;
+}
+
+.header{
+	text-align: center;
+}

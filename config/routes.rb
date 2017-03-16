@@ -11,6 +11,12 @@ Rails.application.routes.draw do
     collection do
       get 'list'
     end
+  end
+
+  resources :documentations, :except => 'show' do
+    collection do
+      get 'list'
+    end
   end 
 
   resources :locations, :except => 'show' do

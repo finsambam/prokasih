@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
-//= require headroom.js/dist/headroom
 //= require datatables.net/js/jquery.dataTables
 //= require datatables.net-bs/js/dataTables.bootstrap
 //= require datatables.net-buttons/js/dataTables.buttons
@@ -22,4 +21,3 @@
 //= require bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all
 //= require bootstrap-datepicker
 //= require map
-//= require_tree .

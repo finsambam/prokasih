@@ -22,4 +22,8 @@ class Analytic < ApplicationRecord
     joins(:location).where(locations: {river_name: river_name}, period: period)
   end
 
+  def self.chart_data(river_name, start_date, end_date, parameter_id)
+    joins(:location, :parameters).where(locations: {river_name: river_name}, parameters:{id: parameter_id}).in_period(start_date, end_date)
+  end
+
 end

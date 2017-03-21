@@ -4,14 +4,13 @@
 <table id="article-table" class="display table table-striped table-bordered" cellspacing="0" width="100%">
   <thead>
     <tr>
-      <th>Kategori</th>
       <th>Nama</th>
+      <th>Kategori</th>
       <th>Tanggal dibuat</th>
     </tr>
   </thead>
   <% @parameters.each do |p| %>
     <tr>
-      <td><%= "#{p.parameter_category.name}" %></td>
       <td>
         <%= "#{p.name}" %>
         <div class="btn-group" style="float: right;">
@@ -25,7 +24,8 @@
           </ul>
         </div>
       </td>
-      <td><%= "#{p.created_at}" %></td>
+      <td><%= "#{p.parameter_category.name}" %></td>
+      <td><%= "#{p.created_at.strftime('%d-%m-%Y')}" %></td>
     </tr>
   <% end %>
 </table>

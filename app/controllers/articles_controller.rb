@@ -1,8 +1,12 @@
 class ArticlesController < ApplicationController
   before_filter :authenticate_user!, except: :index
-  before_filter :find_article, only: [:edit, :update, :destroy]
+  before_filter :find_article, only: [:edit, :update, :destroy, :show]
   
   def index
+    
+  end
+
+  def show
     
   end
 
@@ -18,9 +22,20 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
+    
+    if params[:article][:image].present?
+      documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
+        d.image = params[:article][:image]
+      end
+      @article.documentation = documentation
+    end
+
     if @article.save!
       redirect_to list_articles_path
     else
+      if documentation.present?
+        documentation.destroy!
+      end
       render 'new'
     end 
   end
@@ -29,9 +44,19 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    if params[:article][:image].present?
+      documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
+        d.image = params[:article][:image]
+      end
+      params[:article][:documentation_id] = documentation.id
+    end
+
     if @article.update_attributes(article_params)
       redirect_to list_articles_path
     else
+      if documentation.present?
+        documentation.destroy!
+      end
       render 'edit'
     end
   end
@@ -45,7 +70,7 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :content)
+    params.require(:article).permit(:title, :content, :documentation_id)
   end
 
   def find_article

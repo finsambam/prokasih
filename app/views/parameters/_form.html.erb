@@ -6,9 +6,26 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :parameter_category_id, "Kategori", class: "col-sm-3 control-label" %>
+    <%= label_tag 'category_selector', 'Kategori', class: "col-sm-3 control-label" %>
     <div class="col-sm-8">
-      <%= f.select :parameter_category_id, @parameter_categories.collect { |c| [ c.name, c.id ] }, {}, {class: "form-control"} %>
+      <label class="radio-inline">
+        <input type="radio" name="category_radio" id="inlineRadio1" value="add"> Tambah baru
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="category_radio" id="inlineRadio2" value="existing"> Pilih dari list
+      </label>
+    </div>
+  </div>
+  <div class="form-group new-category">
+    <%= label_tag "parameter_category_name", "", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= text_field_tag "parameter_category_name", "", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group existing-category">
+    <%= label_tag "parameter_category_id", "", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.select :parameter_category_id, @parameter_categories.collect { |c| [ c.name, c.id ] }, {prompt: "Pilih categori"}, {class: "form-control"} %>
     </div>
   </div>
   <div class="form-group">
@@ -24,3 +41,37 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $( document ).on('turbolinks:load', function() {
+    initCategory();
+
+    $('input[name=category_radio]').click(function(e){
+      switch(this.value) {
+        case "add":
+          $('.new-category').removeClass("hidden");
+          $('.existing-category').addClass("hidden");
+          $('select[name=parameter_category_id]').val([]);
+          break;
+        case "existing":
+          $('.existing-category').removeClass("hidden");
+          $('.new-category').addClass("hidden");
+          $('input[name=parameter_category_name]').val("");
+          break;
+      }
+    })
+  })
+
+  var initCategory = function(){
+
+    <% if @parameter.id.present? %>
+      $("#inlineRadio2").prop("checked", true)
+      $('.existing-category').removeClass("hidden");
+      $('.new-category').addClass("hidden");
+    <% else %>
+      $("#inlineRadio1").prop("checked", true)
+      $('.new-category').removeClass("hidden");
+      $('.existing-category').addClass("hidden");
+    <% end %>
+  }
+</script>

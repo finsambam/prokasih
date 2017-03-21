@@ -1,4 +1,6 @@
 class Criterium < ApplicationRecord
+  validates :name, presence: true
+  
   has_many :criterium_parameters, dependent: :destroy
   has_many :parameters, through: :criterium_parameters
 

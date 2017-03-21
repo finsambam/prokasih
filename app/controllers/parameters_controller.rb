@@ -13,9 +13,18 @@ class ParametersController < ApplicationController
 
   def create
     @parameter = Parameter.new(parameter_params)
+    
+    if params[:parameter_category_name].present?
+      category = ParameterCategory.find_or_create_by(name: params[:parameter_category_name])
+      @parameter.parameter_category = category
+    end
+
     if @parameter.save!
       redirect_to parameters_path
     else
+      if category.present?
+        category.destroy!
+      end
       render 'new'
     end 
   end
@@ -24,9 +33,17 @@ class ParametersController < ApplicationController
   end
 
   def update
+    if params[:parameter_category_name].present?
+      category = ParameterCategory.find_or_create_by(name: params[:parameter_category_name])
+      params[:parameter][:parameter_category_id] = category.id
+    end
+
     if @parameter.update_attributes(parameter_params)
       redirect_to parameters_path
     else
+      if category.present?
+        category.destroy!
+      end
       render 'edit'
     end
   end
@@ -49,4 +66,5 @@ class ParametersController < ApplicationController
   def find_parameter
     @parameter = Parameter.find(params[:id])
   end
+
 end

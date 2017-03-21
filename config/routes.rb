@@ -31,7 +31,9 @@ Rails.application.routes.draw do
   end
   get '/home', to: 'home#index'
   get '/results/analytics', to: 'results#analytics'
+  get '/results/analytics/chart', to: 'results#analytic_charts'
   get '/results/get_analytics', to: 'results#get_analytics'
+  get '/results/get_analytic_charts', to: 'results#get_analytic_charts'
   get '/results/save_analytic_as_pdf', to: 'results#save_analytic_as_pdf'
   root to: 'home#index'
 end

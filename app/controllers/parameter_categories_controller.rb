@@ -8,6 +8,10 @@ class ParameterCategoriesController < ApplicationController
 
   def new
     @parameter_category = ParameterCategory.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

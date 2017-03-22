@@ -3,15 +3,18 @@
 $( document ).on('turbolinks:load', function() {
   // Init datepicker
   var dateElement = $('.datepicker').datepicker({
-    format: "MM yyyy",
-    startView: 1,
-    minViewMode: 1,
+    format: "yyyy",
+    startView: 2,
+    minViewMode: 2,
     maxViewMode: 2
   });
 
   // set timestamp hiden element and hide datepicker when user change months
-  dateElement.on("changeMonth", function(e){
+  dateElement.on("changeYear", function(e){
     var elementId = e.target.id;
+    if (elementId === "start_period") {
+      $('#end_period_date').val(e.date);  
+    };
     $('#'+elementId+'_date').val(e.date);
     $(e.target).datepicker("hide");
   });
@@ -57,8 +60,8 @@ var dynamicColors = function() {
 var isAllFieldFilled = function(){
   var river = $("#river_name").val();
   var parameter = $("#parameter").val();
-  var startPeriod = $("#start_period").val();
-  var endPeriod = $("#end_period").val();
+  var startPeriod = $("#start_period_date").val();
+  var endPeriod = $("#end_period_date").val();
   var criterium = $("#criterium").val();
   if (river !== "" && parameter !== "" && startPeriod != "" && endPeriod != "" && criterium !== "") {
     return true;
@@ -88,27 +91,33 @@ var getChartData = function(){
 }
 
 var generateChart = function(response){
+  if (response.data.length === 0) {
+    $("#myChart").hide();
+    $("table#table-empty").show();
+    return;  
+  };
   var chartTitle = response.title;
   var chartXLabel = response.xLabels;
   var unit = response.unit;
   var datasets = [];
   for (var i = 0; i < response.data.length; i++) {
+    var choosedColor = dynamicColors();
     var dataset = {
         label: response.data[i].period,
         fill: false,
         lineTension: 0.1,
-        backgroundColor: dynamicColors(),
-        borderColor: dynamicColors(),
+        backgroundColor: choosedColor,
+        borderColor: choosedColor,
         borderCapStyle: 'round',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: dynamicColors(),
+        pointBorderColor: choosedColor,
         pointBackgroundColor: "#fff",
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: dynamicColors(),
-        pointHoverBorderColor: dynamicColors(),
+        pointHoverBackgroundColor: choosedColor,
+        pointHoverBorderColor: choosedColor,
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
@@ -133,7 +142,7 @@ var generateChart = function(response){
           display:true,
           text:chartTitle,
           fullWidth:true,
-          fontSize:24
+          fontSize:20
         },
         tooltips: {
           mode: 'index',

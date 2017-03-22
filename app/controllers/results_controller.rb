@@ -24,17 +24,10 @@ class ResultsController < ApplicationController
 
   def get_analytic_charts
     parameter = Parameter.find(params["parameter"])
-    label_chart = "Grafik #{parameter.name} #{params['river']} Tahun #{params['start']}"
-    label_chart = label_chart + "-#{params['end']}" if params["end"].present?
+    label_chart = "Grafik #{parameter.name} #{params['river']} Tahun #{DateTime.parse(params['start']).strftime("%Y")}"
+    label_chart = label_chart + "-#{DateTime.parse(params['end']).strftime("%Y")}" if params["end"] != params["start"]
     x_label_chart = Location.by_river_name(params["river"]).sort_by{|l| l.id}.map { |l| l.spot_name }
-    data = [{
-      :period => "JAN 2017",
-      :values => [25, 30, 55]
-      },
-      {
-      :period => "FEB 2017",
-      :values => [66, 55, 30]
-      }]
+    data = AnalyticParameter.chart_data(params["river"], DateTime.parse(params["start"]), DateTime.parse(params["end"]) + 1, params["parameter"])
 
     respond_to do |format|
       format.json { render :json => {:title => label_chart, :xLabels => x_label_chart, :data => data } }

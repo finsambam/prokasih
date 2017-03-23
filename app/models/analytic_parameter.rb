@@ -13,7 +13,7 @@ class AnalyticParameter < ApplicationRecord
     periods = parameters.map{|p|p.analytic.period}.uniq
     periods.each do |period|
     	results << {
-    		period: period.strftime("%Y"),
+    		period: period.strftime("%B %Y"),
     		values: parameters.joins(:analytic).where(analytics:{period: period}).sort_by{|a| a.analytic.location_id}.map {|a| a.value}
     	}
     end

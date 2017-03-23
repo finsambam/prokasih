@@ -13,9 +13,9 @@ $( document ).on('turbolinks:load', function() {
   dateElement.on("changeYear", function(e){
     var elementId = e.target.id;
     if (elementId === "start_period") {
-      $('#end_period_date').val(e.date);  
+      $('#end_period').datepicker("update", e.date);
     };
-    $('#'+elementId+'_date').val(e.date);
+    // $('#'+elementId+'_date').val(e.date);
     $(e.target).datepicker("hide");
   });
 
@@ -60,8 +60,8 @@ var dynamicColors = function() {
 var isAllFieldFilled = function(){
   var river = $("#river_name").val();
   var parameter = $("#parameter").val();
-  var startPeriod = $("#start_period_date").val();
-  var endPeriod = $("#end_period_date").val();
+  var startPeriod = $("#start_period").val();
+  var endPeriod = $("#end_period").val();
   var criterium = $("#criterium").val();
   if (river !== "" && parameter !== "" && startPeriod != "" && endPeriod != "" && criterium !== "") {
     return true;
@@ -76,8 +76,8 @@ var getChartData = function(){
     data: {
       river: $('#river_name option:selected').text(), 
       parameter: $('#parameter option:selected').val(), 
-      start: $('#start_period_date').val(), 
-      end: $('#end_period_date').val(),
+      start: $('#start_period').val(), 
+      end: $('#end_period').val(),
       criterium: $('#criterium option:selected').val()
     },
     beforeSend: (function(){

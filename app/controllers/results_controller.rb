@@ -23,14 +23,18 @@ class ResultsController < ApplicationController
   end
 
   def get_analytic_charts
+    start_date = DateTime.new(params["start"].to_f, 1, 1)
+    end_date = DateTime.new(params["end"].to_f, 12, 31) 
     parameter = Parameter.find(params["parameter"])
-    label_chart = "Grafik #{parameter.name} #{params['river']} Tahun #{DateTime.parse(params['start']).strftime("%Y")}"
-    label_chart = label_chart + "-#{DateTime.parse(params['end']).strftime("%Y")}" if params["end"] != params["start"]
-    x_label_chart = Location.by_river_name(params["river"]).sort_by{|l| l.id}.map { |l| l.spot_name }
-    data = AnalyticParameter.chart_data(params["river"], DateTime.parse(params["start"]), DateTime.parse(params["end"]) + 1, params["parameter"])
-
+    label_chart = "Grafik #{parameter.name} #{params['river']} Tahun #{start_date.strftime("%Y")}"
+    label_chart = label_chart + "-#{end_date.strftime("%Y")}" if params["end"] != params["start"]
+    locations = Location.by_river_name(params["river"]).sort_by{|l| l.id}.map { |l| l.spot_name }
+    data = AnalyticParameter.chart_data(params["river"], start_date, end_date, params["parameter"])
+    criterium_data = CriteriumParameter.chart_data(params["parameter"], params["criterium"], locations.length)
+    data << criterium_data
+    session[:chart] = params
     respond_to do |format|
-      format.json { render :json => {:title => label_chart, :xLabels => x_label_chart, :data => data } }
+      format.json { render :json => {:title => label_chart, :xLabels => locations, :data => data } }
     end
   end
 
@@ -43,6 +47,31 @@ class ResultsController < ApplicationController
       format.pdf do
         render pdf: 'file_name',
                template: 'results/analytics.pdf.erb',
+               layout: 'layouts/pdf.html.erb',
+               footer: {
+                 center: 'Center',
+                 left: 'Left',
+                 right: 'Right'
+               }
+      end
+    end
+  end
+
+  def save_analytic_chart_as_pdf
+    start_date = DateTime.new(session[:chart]["start"].to_f, 1, 1)
+    end_date = DateTime.new(session[:chart]["end"].to_f, 12, 31) 
+    parameter = Parameter.find(session[:chart]["parameter"])
+    @label_chart = "Grafik #{parameter.name} #{session[:chart]['river']} Tahun #{start_date.strftime("%Y")}"
+    @label_chart = @label_chart + "-#{end_date.strftime("%Y")}" if session[:chart]["end"] != session[:chart]["start"]
+    @locations = Location.by_river_name(session[:chart]["river"]).sort_by{|l| l.id}.map { |l| l.spot_name }
+    @data = AnalyticParameter.chart_data(session[:chart]["river"], start_date, end_date, session[:chart]["parameter"])
+    criterium_data = CriteriumParameter.chart_data(session[:chart]["parameter"], session[:chart]["criterium"], locations.length)
+    @data << criterium_data
+    
+    respond_to do |format|
+      format.pdf do
+        render pdf: 'file_name',
+               template: 'results/analytic_chart.pdf.erb',
                layout: 'layouts/pdf.html.erb',
                footer: {
                  center: 'Center',

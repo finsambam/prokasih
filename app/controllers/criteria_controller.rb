@@ -1,4 +1,4 @@
-class CriteriaController < 
+class CriteriaController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_criterium, only: [:edit, :update, :destroy]
   before_filter :init_parameters, only: [:new, :create, :edit, :update]

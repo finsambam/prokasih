@@ -15,7 +15,12 @@
 
   <body class="custom-background">
     <div id="page-wrapper" class="container">
-      <div class="top-banner"></div>
+      <div class="top-banner">
+        <div id="title-caption">
+          <h1>SISTEM INFORMASI GEOGRAFIS PROGRAM KALI BERSIH (PROKASIH)</h1>
+          <h2>Kementrian Lingkungan Hidup Kota Tegal</h2>
+        </div>
+      </div>
       <nav class="navbar custom-nav nav-color" data-spy="affix" data-offset-top="197">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -31,12 +36,6 @@
             <% if current_user.present? && current_user.roles.map{ |role| role.name}.include?("Administrator")%>
               <% if can? :read, User %>
                 <li><%= link_to 'User', users_path %></li>
-              <% end %>
-              <% if can? :read, Article %>
-                <li><%= link_to 'Artikel', list_articles_path %></li>
-              <% end %>
-              <% if can? :read, Documentation %>
-                <li><%= link_to 'Dokumentasi', list_documentations_path %></li>
               <% end %>
             <% end %>
             <li class="dropdown">
@@ -73,8 +72,17 @@
                 <% end %>
               </ul>
             </li>
-            <li><a href="#">Dokumentasi</a></li>
-            <li><a href="#">Artikel</a></li>
+            <% if current_user.present? && current_user.roles.map{ |role| role.name}.include?("Administrator")%>
+              <% if can? :read, Article %>
+                <li><%= link_to 'Artikel', list_articles_path %></li>
+              <% end %>
+              <% if can? :read, Documentation %>
+                <li><%= link_to 'Dokumentasi', list_documentations_path %></li>
+              <% end %>
+            <% else %>
+              <li><%= link_to 'Artikel', articles_path %></li>
+              <li><%= link_to 'Dokumentasi', documentations_path %></li>
+            <% end %>
             <li><a href="#">Diskusi</a></li>
           </ul>
           <ul class="nav navbar-nav pull-right">

@@ -14,7 +14,7 @@ $( document ).on('turbolinks:load', function() {
     var elementId = e.target.id;
     if (elementId === "start_period") {
       $('#end_period').datepicker("update", e.date);
-    };
+    }
     // $('#'+elementId+'_date').val(e.date);
     $(e.target).datepicker("hide");
   });
@@ -22,31 +22,39 @@ $( document ).on('turbolinks:load', function() {
   $("#river_name").change(function(){
     if (isAllFieldFilled()) {
       getChartData();
-    };
+    }
   })
 
   $("#parameter").change(function(){
     if (isAllFieldFilled()) {
       getChartData();
-    };
+    }
   })
 
   $("#start_period").change(function(){
     if (isAllFieldFilled()) {
-      getChartData();
-    };
+      if (isValidPeriod()) {
+        getChartData();
+      } else{
+        showError();
+      }
+    }
   })
 
   $("#end_period").change(function(){
     if (isAllFieldFilled()) {
-      getChartData();
-    };
+      if (isValidPeriod()) {
+        getChartData();
+      } else{
+        showError();
+      }
+    }
   })
 
   $("#criterium").change(function(){
     if (isAllFieldFilled()) {
       getChartData();
-    };
+    }
   })
 });
 
@@ -67,6 +75,19 @@ var isAllFieldFilled = function(){
     return true;
   };
   return false;
+}
+
+var isValidPeriod = function(){
+  var startPeriod = parseInt($("#start_period").val());
+  var endPeriod = parseInt($("#end_period").val());
+
+  if (startPeriod < endPeriod) {return true;}
+  return false;
+}
+
+var showError = function(message){
+  $("#error_explanation .alert ul").html("<li>" + message + "</li>");
+  $("#error_explanation").removeClass("hidden");
 }
 
 var getChartData = function(){
@@ -94,12 +115,15 @@ var generateChart = function(response){
   if (response.data.length === 0) {
     $("#myChart").hide();
     $("table#table-empty").show();
+    $("a#download-chart-pdf").addClass("disabled");
     return;  
   };
+
   var chartTitle = response.title;
   var chartXLabel = response.xLabels;
   var unit = response.unit;
   var datasets = [];
+  $("a#download-chart-pdf").removeClass("disabled");
   for (var i = 0; i < response.data.length; i++) {
     var choosedColor = dynamicColors();
     var dataset = {

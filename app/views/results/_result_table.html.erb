@@ -43,7 +43,7 @@
             <td><%= param.unit%></td>
             <% @analytics.each do |analytic| %>
               <% analytic.analytic_parameters.where(parameter_id: param.id).each do |analytic_param| %>
-                <td class=<%= analytic_param.value < @selected_criterium.criterium_parameters.find_by(parameter_id: param.id).value ? 'red' : 'black' %>><%= analytic_param.value %></td>
+                <td class=<%= analytic_value_class(analytic_param.value, param.id) %>><%= analytic_param.value %></td>
               <% end %>
             <% end %>
             <% @criteria.each do |criterium| %>

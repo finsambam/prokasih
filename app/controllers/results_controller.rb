@@ -34,8 +34,12 @@ class ResultsController < ApplicationController
     data << criterium_data
     session[:chart] = params
     respond_to do |format|
-      format.json { render :json => {:title => label_chart, :xLabels => locations, :data => data } }
+      format.json { render :json => {:title => label_chart, :xLabels => locations, :data => data, :unit =>  parameter.unit} }
     end
+  end
+
+  def location
+    @rivers = Location::RIVERS
   end
 
   def save_analytic_as_pdf
@@ -61,23 +65,19 @@ class ResultsController < ApplicationController
     start_date = DateTime.new(session[:chart]["start"].to_f, 1, 1)
     end_date = DateTime.new(session[:chart]["end"].to_f, 12, 31) 
     parameter = Parameter.find(session[:chart]["parameter"])
-    @label_chart = "Grafik #{parameter.name} #{session[:chart]['river']} Tahun #{start_date.strftime("%Y")}"
-    @label_chart = @label_chart + "-#{end_date.strftime("%Y")}" if session[:chart]["end"] != session[:chart]["start"]
-    @locations = Location.by_river_name(session[:chart]["river"]).sort_by{|l| l.id}.map { |l| l.spot_name }
-    @data = AnalyticParameter.chart_data(session[:chart]["river"], start_date, end_date, session[:chart]["parameter"])
-    criterium_data = CriteriumParameter.chart_data(session[:chart]["parameter"], session[:chart]["criterium"], locations.length)
-    @data << criterium_data
-    
+    gon.label_chart = "Grafik #{parameter.name} #{session[:chart]['river']} Tahun #{start_date.strftime("%Y")}"
+    gon.label_chart = gon.label_chart + "-#{end_date.strftime("%Y")}" if session[:chart]["end"] != session[:chart]["start"]
+    gon.locations = Location.by_river_name(session[:chart]["river"]).sort_by{|l| l.id}.map { |l| l.spot_name }
+    gon.data = AnalyticParameter.chart_data(session[:chart]["river"], start_date, end_date, session[:chart]["parameter"])
+    criterium_data = CriteriumParameter.chart_data(session[:chart]["parameter"], session[:chart]["criterium"], gon.locations.length)
+    gon.data << criterium_data
+    gon.unit = parameter.unit
     respond_to do |format|
       format.pdf do
         render pdf: 'file_name',
                template: 'results/analytic_chart.pdf.erb',
                layout: 'layouts/pdf.html.erb',
-               footer: {
-                 center: 'Center',
-                 left: 'Left',
-                 right: 'Right'
-               }
+               javascript_delay: 1000
       end
     end
   end

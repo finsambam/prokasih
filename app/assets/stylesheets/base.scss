@@ -1,3 +1,26 @@
+/*font configuration*/
+@font-face {
+  font-family: 'UniversCondensedMedium';
+  src: url('/assets/Univers-Condensed-Medium.eot');
+  src: url('Univers-Condensed-Medium.eot?#iefix') format('embedded-opentype'),
+    url('/assets/Univers-Condensed-Medium.woff') format('woff'),
+    url('/assets/Univers-Condensed-Medium.ttf') format('truetype'),
+    url('/assets/Univers-Condensed-Medium.svg#Univers-Condensed-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('/assets/HelveticaNeueRegular.eot');
+  src: url('HelveticaNeueRegular.eot?#iefix') format('embedded-opentype'),
+    url('/assets/HelveticaNeueRegular.woff') format('woff'),
+    url('/assets/HelveticaNeueRegular.ttf') format('truetype'),
+    url('/assets/HelveticaNeueRegular.svg#HelveticaNeueRegular') format('svg');
+  font-weight: 100;
+  font-style: normal;
+}
+
 /*Body styles*/
 body.custom-background {
 	background-color: #002600;
@@ -60,8 +83,9 @@ body.custom-background {
 /*Header styles*/
 .top-banner {
 	height: 120px;
+  padding-top: 13px;
 	margin: 0px auto;
-	background: image-url('logo-menlh-ri.png');
+	background: image-url('logo-menlh-ri_tegal.png');
 }
 
 /*fixed affix navifation*/
@@ -184,4 +208,21 @@ table>thead>tr>th {
 
 .right{
   float: right !important
+}
+
+#title-caption {
+  text-align: center;
+  font-family: "UniversCondensedMedium","HelveticaNeue",Helvetica,Arial,sans-serif;
+  color: #21610B;
+}
+
+#title-caption h1 {
+  font-size: 29px;
+  font-weight: bolder;
+  margin-bottom: 0 !important;
+}
+
+#title-caption h2 {
+  font-size: 27px;
+  margin-top: 0 !important;
 }

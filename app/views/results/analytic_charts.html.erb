@@ -1,8 +1,9 @@
+<%= render :partial => 'shared/error_without_params' %>
+
 <div class="header-content">
   <h2 class="page-header">Grafik analisis Analisa</h2>
-  
 </div>
-<%= link_to 'Unduh(PDF)', results_save_analytic_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-pdf", target: :_blank%>
+<%= link_to 'Unduh(PDF)', results_save_analytic_chart_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-chart-pdf", target: :_blank%>
 <div class="col-md-12">
   <form class='form-inline' id='filter'>
     <fieldset>
@@ -34,4 +35,5 @@
   </table>
   <canvas style="display:none;" id="myChart" width="400" height="400"></canvas>
 </div>
+
 <%= javascript_include_tag 'analytic_charts' %>

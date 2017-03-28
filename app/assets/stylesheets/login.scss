@@ -2,12 +2,9 @@
 @import "bootstrap-sass/assets/stylesheets/bootstrap";
 @import "font-awesome/scss/font-awesome";
 
-body { 
- 	background: #76b852;
-  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);
+body {
+	background: image-url('landing-page.jpg') no-repeat;
+	background-size: 100%; 
 }
 
 .panel-default {
@@ -18,4 +15,25 @@ body {
 
 .container>div.row>div {
 	margin-top:10% !important;
+}
+
+@media (min-width: 990px){
+	.side-title{
+		margin-top: 30px;
+		height: 246px;
+	  padding-left: 20px;
+	  border-left: 4px solid #4B8A08;
+	  color: #21610B;
+	}	
+}
+
+@media (max-width: 989px) {
+  .side-title, .side-title>h1 {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none;
+  }
 }

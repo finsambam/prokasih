@@ -33,21 +33,13 @@ $( document ).on('turbolinks:load', function() {
 
   $("#start_period").change(function(){
     if (isAllFieldFilled()) {
-      if (isValidPeriod()) {
-        getChartData();
-      } else{
-        showError();
-      }
+      getChartData();
     }
   })
 
   $("#end_period").change(function(){
     if (isAllFieldFilled()) {
-      if (isValidPeriod()) {
-        getChartData();
-      } else{
-        showError();
-      }
+      getChartData();
     }
   })
 
@@ -66,15 +58,24 @@ var dynamicColors = function() {
 }
 
 var isAllFieldFilled = function(){
+  var result = false;
   var river = $("#river_name").val();
   var parameter = $("#parameter").val();
   var startPeriod = $("#start_period").val();
   var endPeriod = $("#end_period").val();
   var criterium = $("#criterium").val();
   if (river !== "" && parameter !== "" && startPeriod != "" && endPeriod != "" && criterium !== "") {
-    return true;
-  };
-  return false;
+    
+    $("#error_explanation").addClass("hidden");
+    result = true;
+    
+    if (parseInt(startPeriod) > parseInt(endPeriod)) {
+      showError("Akhir periode tidak boleh kurang dari awal periode");
+      result = false;
+    };
+  }
+
+  return result;
 }
 
 var isValidPeriod = function(){

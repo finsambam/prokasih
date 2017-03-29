@@ -1,4 +1,5 @@
 class ResultsController < ApplicationController
+  
   def analytics
     @rivers = Location::RIVERS
     @criteria = Criterium.all
@@ -40,6 +41,13 @@ class ResultsController < ApplicationController
 
   def location
     @rivers = Location::RIVERS
+  end
+
+  def get_all_location
+    @locations = Location.by_river_name(params[:river_name])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def save_analytic_as_pdf

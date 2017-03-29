@@ -1,0 +1,3 @@
+<% if @locations.any? %>
+  $('#result-container').html('<%= escape_javascript (render "result_map") %>');
+<% end %>

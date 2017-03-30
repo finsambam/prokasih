@@ -44,9 +44,21 @@ class ResultsController < ApplicationController
   end
 
   def get_all_location
+    session[:location_params] = params
     @locations = Location.by_river_name(params[:river_name])
     respond_to do |format|
       format.js
+    end
+  end
+
+  def save_map_image_as_pdf
+    @locations = Location.by_river_name(session[:location_params]["river_name"])
+    respond_to do |format|
+      format.pdf do
+        render pdf: 'file_name',
+               template: 'results/maps.pdf.erb',
+               layout: 'layouts/pdf.html.erb'
+      end
     end
   end
 

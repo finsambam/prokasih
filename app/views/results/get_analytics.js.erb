@@ -1,6 +1,8 @@
 <% if @analytics.any? %>
   $("a#download-pdf").removeClass("disabled");
+  $('a#download-pdf').prop('disabled', false);
 <% else %>
   $("a#download-pdf").addClass("disabled");
+  $('a#download-pdf').prop('disabled', true);
 <% end %>
 $('#result-container').html('<%= escape_javascript (render "result_table") %>');

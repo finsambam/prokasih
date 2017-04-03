@@ -1,6 +1,7 @@
 class ResultsController < ApplicationController
   
   def analytics
+    byebug
     @rivers = Location::RIVERS
     @criteria = Criterium.all
   end
@@ -52,36 +53,27 @@ class ResultsController < ApplicationController
   end
 
   def save_map_image_as_pdf
+    save_download_information(params, "map_location")
+
     @locations = Location.by_river_name(session[:location_params]["river_name"])
-    respond_to do |format|
-      format.pdf do
-        render pdf: 'file_name',
-               template: 'results/maps.pdf.erb',
-               layout: 'layouts/pdf.html.erb'
-      end
-    end
+    
+    render_as_pdf('results/maps.pdf.erb')
   end
 
   def save_analytic_as_pdf
+    save_download_information(params, "analytics")
+
     @criteria = Criterium.all
     @selected_criterium = Criterium.find(session[:params]["criterium"])
     @parameter_categories = ParameterCategory.all
     @analytics = Analytic.by_river_name_and_period(session[:params]["river_name"], session[:params]["period_date"])
-    respond_to do |format|
-      format.pdf do
-        render pdf: 'file_name',
-               template: 'results/analytics.pdf.erb',
-               layout: 'layouts/pdf.html.erb',
-               footer: {
-                 center: 'Center',
-                 left: 'Left',
-                 right: 'Right'
-               }
-      end
-    end
+    
+    render_as_pdf('results/analytics.pdf.erb')
   end
 
   def save_analytic_chart_as_pdf
+    save_download_information(params, "analytic_chart")
+    
     start_date = DateTime.new(session[:chart]["start"].to_f, 1, 1)
     end_date = DateTime.new(session[:chart]["end"].to_f, 12, 31) 
     parameter = Parameter.find(session[:chart]["parameter"])
@@ -92,10 +84,27 @@ class ResultsController < ApplicationController
     criterium_data = CriteriumParameter.chart_data(session[:chart]["parameter"], session[:chart]["criterium"], gon.locations.length)
     gon.data << criterium_data
     gon.unit = parameter.unit
+    
+    render_as_pdf('results/analytic_chart.pdf.erb')
+  end
+
+  private
+
+  def save_download_information(params, result_type)
+    byebug
+    unless current_user.present?
+      download_history_service = DownloadHistoryService.new(params[:email], params[:purpose_of_download], result_type)
+    else
+      download_history_service = DownloadHistoryService.new(current_user.email, "download_by_operator", result_type)
+    end
+    download_history_service.save_to_DB
+  end
+
+  def render_as_pdf(template)
     respond_to do |format|
       format.pdf do
         render pdf: 'file_name',
-               template: 'results/analytic_chart.pdf.erb',
+               template: template,
                layout: 'layouts/pdf.html.erb',
                javascript_delay: 1000
       end

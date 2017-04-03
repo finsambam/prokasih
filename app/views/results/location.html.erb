@@ -1,3 +1,5 @@
+<%= render :partial => 'shared/error_without_params' %>
+
 <div class="header-content">
   <h2 class="page-header">Peta Lokasi Pengujian</h2>
 </div>
@@ -12,7 +14,11 @@
     <% end %>
   </div>
   <div class="col-md-2">
-    <%= link_to 'Unduh(PDF)', results_save_map_image_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-map-pdf", target: :_blank%>
+    <% if current_user.present? %>
+      <%= link_to 'Unduh(PDF)', results_save_map_image_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-map-pdf", target: :_blank, disabled: true%>
+    <% else %>
+      <button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#download-confirmation-modal" id="download-map-pdf" disabled>Unduh(PDF)</button>
+    <% end %>
   </div>
 </div>
 <div class="col-md-12" id="result-container">
@@ -22,6 +28,8 @@
     </tr>
   </table>
 </div>
+
+<%= render :partial => 'download_confirmation' %>
 
 <script type="text/javascript">
   $( document ).on('turbolinks:load', function() {

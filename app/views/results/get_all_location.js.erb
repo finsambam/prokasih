@@ -1,6 +1,8 @@
 <% if @locations.any? %>
 	$('#download-map-pdf').removeClass('disabled');
+	$('#download-map-pdf').prop('disabled', false);
   $('#result-container').html('<%= escape_javascript (render "result_map") %>');
 <% else %>
 	$('#download-map-pdf').addClass('disabled');
+	$('#download-map-pdf').prop('disabled', true);
 <% end %>

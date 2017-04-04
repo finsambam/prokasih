@@ -1,8 +1,13 @@
 <% if @analytics.any? %>
-  $("a#download-pdf").removeClass("disabled");
-  $('a#download-pdf').prop('disabled', false);
+  $("#download-pdf").removeClass("disabled");
+  $('#download-pdf').prop('disabled', false);
+  $('a#download-pdf').removeAttr("disabled");
 <% else %>
-  $("a#download-pdf").addClass("disabled");
-  $('a#download-pdf').prop('disabled', true);
+  $("#download-pdf").addClass("disabled");
+  $('#download-pdf').prop('disabled', true);
+  $('a#download-pdf').attr("disabled", true);
+  $('a#download-pdf').click(function(event){
+    event.preventDefault();
+  });
 <% end %>
 $('#result-container').html('<%= escape_javascript (render "result_table") %>');

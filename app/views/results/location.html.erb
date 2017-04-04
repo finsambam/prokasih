@@ -29,7 +29,7 @@
   </table>
 </div>
 
-<%= render :partial => 'download_confirmation' %>
+<%= render :partial => 'download_confirmation', :locals => {:form_action => results_save_map_image_as_pdf_path(:format => :pdf)} %>
 
 <script type="text/javascript">
   $( document ).on('turbolinks:load', function() {

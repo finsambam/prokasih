@@ -3,9 +3,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Form Konfirmasi</h4>
+        <h4 class="modal-title" id="myModalLabel">Konfirmasi Unduh</h4>
       </div>
-      <%= form_tag(results_save_map_image_as_pdf_path(:format => :pdf), method: 'get', class: 'form-horizontal', id: 'filter', target: :_blank) do %>
+      <%= form_tag(form_action, method: 'get', class: 'form-horizontal', id: 'filter', target: :_blank) do %>
         <div class="modal-body">
           <div class="form-group">
             <%= label_tag :email, "Email", class: "col-sm-3 control-label" %>
@@ -14,20 +14,15 @@
             </div>
           </div>
           <div class="form-group">
-            <%= label_tag :purpose_of_download, "Tujuan Download", class: "col-sm-3 control-label" %>
+            <%= label_tag :purpose_of_download, "Tujuan Unduh", class: "col-sm-3 control-label" %>
             <div class="col-sm-8">
               <%= text_field_tag :purpose_of_download, nil, placeholder: 'Tujuan download', class: 'form-control' %>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-8">
-              
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-          <%= submit_tag "Simpan", id:'submit-btn', class: "btn btn-success disabled", disabled: true %>
+          <%= submit_tag "Unduh(PDF)", id:'submit-btn', class: "btn btn-success disabled", disabled: true %>
         </div>
       <% end %>
     </div>

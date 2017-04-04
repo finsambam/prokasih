@@ -116,7 +116,12 @@ var generateChart = function(response){
   if (response.data.length === 0) {
     $("#myChart").hide();
     $("table#table-empty").show();
-    $("a#download-chart-pdf").addClass("disabled");
+    $("#download-chart-pdf").addClass("disabled");
+    $('#download-chart-pdf').prop('disabled', true);
+    $('a#download-chart-pdf').attr("disabled", true);
+    $('a#download-chart-pdf').click(function(event){
+      event.preventDefault();
+    });
     return;  
   };
 
@@ -124,7 +129,9 @@ var generateChart = function(response){
   var chartXLabel = response.xLabels;
   var unit = response.unit;
   var datasets = [];
-  $("a#download-chart-pdf").removeClass("disabled");
+  $("#download-chart-pdf").removeClass("disabled");
+  $('#download-chart-pdf').prop('disabled', false);
+  $('a#download-chart-pdf').removeAttr("disabled");
   for (var i = 0; i < response.data.length; i++) {
     var choosedColor = dynamicColors();
     var dataset = {

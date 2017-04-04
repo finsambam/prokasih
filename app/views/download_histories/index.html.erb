@@ -1,0 +1,29 @@
+<div class="header-content">
+  <h2 class="page-header">Daftar Rekam Unduh</h2>
+</div>
+<table id="article-table" class="display table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Tujuan Download</th>
+      <th>Jenis Laporan</th>
+      <th>Dicatat Tanggal</th>
+    </tr>
+  </thead>
+  <% @download_histories.each do |d| %>
+    <tr>
+      <td><%= "#{d.email}" %></td>
+      <td><%= "#{d.purpose_of_download}" %></td>
+      <td><%= "#{a.result_type}" %></td>
+      <td><%= "#{a.created_at}" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#article-table').DataTable({
+      dom: "<'row'<'col-sm-12'f>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>"
+    });
+  });
+</script>

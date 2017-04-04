@@ -1,8 +1,13 @@
 <% if @locations.any? %>
-	$('#download-map-pdf').removeClass('disabled');
-	$('#download-map-pdf').prop('disabled', false);
-  $('#result-container').html('<%= escape_javascript (render "result_map") %>');
+  $('#download-map-pdf').removeClass('disabled');
+  $('#download-map-pdf').prop("disabled", false);
+  $('a#download-map-pdf').removeAttr("disabled");
 <% else %>
-	$('#download-map-pdf').addClass('disabled');
-	$('#download-map-pdf').prop('disabled', true);
+  $('#download-map-pdf').addClass('disabled');
+  $('#download-map-pdf').prop("disabled", true);
+  $('a#download-map-pdf').attr("disabled", true);
+  $('a#download-map-pdf').click(function(event){
+    event.preventDefault();
+  });
 <% end %>
+$('#result-container').html('<%= escape_javascript (render "result_map") %>');

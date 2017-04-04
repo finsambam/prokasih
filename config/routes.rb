@@ -39,5 +39,6 @@ Rails.application.routes.draw do
   get '/results/save_analytic_as_pdf', to: 'results#save_analytic_as_pdf'
   get '/results/save_analytic_chart_as_pdf', to: 'results#save_analytic_chart_as_pdf'
   get '/results/save_map_image_as_pdf', to: 'results#save_map_image_as_pdf'
+  get '/download_history', to: 'download_histories#index'
   root to: 'home#index'
 end

@@ -1,39 +1,54 @@
 <%= render :partial => 'shared/error_without_params' %>
 
 <div class="header-content">
-  <h2 class="page-header">Grafik analisis Analisa</h2>
+  <h2 class="page-header">Grafik Analisa</h2>
 </div>
-<%= link_to 'Unduh(PDF)', results_save_analytic_chart_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-chart-pdf", target: :_blank%>
-<div class="col-md-12">
-  <form class='form-inline' id='filter'>
-    <fieldset>
-      <div class="form-group">
-        <%= select_tag 'river_name', options_for_select(@rivers), prompt: "Pilih sungai", class: 'form-control'%>
-      </div>
-      <div class="form-group">
-        <%= select_tag 'parameter', grouped_options_for_select(@parameters), prompt: "Pilih Parameter", class: 'form-control'%>
-      </div>
-      <div class="form-group">
-        <%= text_field_tag 'start_period', nil, placeholder: 'Mulai dari', class: 'form-control datepicker'%>
-        <%= hidden_field_tag 'start_period_date'%>
-      </div>
-      <div class="form-group">
-        <%= text_field_tag 'end_period', nil, placeholder: 'Sampai dengan', class: 'form-control datepicker'%>
-        <%= hidden_field_tag 'end_period_date'%>
-      </div>
-      <div class="form-group">
-        <%= select_tag 'criterium', options_for_select(@criteria.collect{ |c| [c.name, c.id] }), prompt: "Pilih kriteria", class: 'form-control'%>
-      </div>
-    </fieldset>
-  </form>
+<div class="row">
+  <div class="col-md-12">
+    <form class='form-inline' id='filter'>
+      <fieldset>
+        <div class="form-group">
+          <%= select_tag 'river_name', options_for_select(@rivers), prompt: "Pilih sungai", class: 'form-control'%>
+        </div>
+        <div class="form-group">
+          <%= select_tag 'parameter', grouped_options_for_select(@parameters), prompt: "Pilih Parameter", class: 'form-control'%>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag 'start_period', nil, placeholder: 'Mulai dari', class: 'form-control datepicker'%>
+          <%= hidden_field_tag 'start_period_date'%>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag 'end_period', nil, placeholder: 'Sampai dengan', class: 'form-control datepicker'%>
+          <%= hidden_field_tag 'end_period_date'%>
+        </div>
+        <div class="form-group">
+          <%= select_tag 'criterium', options_for_select(@criteria.collect{ |c| [c.name, c.id] }), prompt: "Pilih kriteria", class: 'form-control'%>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </div>
-<div class="col-md-12" id="result-container">
-  <table id="table-empty" class="table table-striped table-bordered">
-    <tr>
-      <td>Data tidak ditemukan</td>
-    </tr>
-  </table>
-  <canvas style="display:none;" id="myChart" width="400" height="400"></canvas>
+<br />  
+<div class="row">
+  <div class="col-md-2">
+    <% if current_user.present? %>
+      <%= link_to 'Unduh(PDF)', results_save_analytic_chart_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-chart-pdf", target: :_blank, disabled: true%>
+    <% else %>
+      <button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#download-confirmation-modal" id="download-chart-pdf" disabled>Unduh(PDF)</button>
+    <% end %>
+  </div>
 </div>
+<div class="row">
+  <div class="col-md-12" id="result-container">
+    <table id="table-empty" class="table table-striped table-bordered">
+      <tr>
+        <td>Data tidak ditemukan</td>
+      </tr>
+    </table>
+    <canvas style="display:none;" id="myChart" width="400" height="400"></canvas>
+  </div>
+</div>
+
+<%= render :partial => 'download_confirmation', :locals => {:form_action => results_save_analytic_chart_as_pdf_path(:format => :pdf)} %>
 
 <%= javascript_include_tag 'analytic_charts' %>

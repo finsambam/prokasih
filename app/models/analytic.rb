@@ -22,18 +22,4 @@ class Analytic < ApplicationRecord
     joins(:location).where(locations: {river_name: river_name}, period: period)
   end
 
-  # def self.chart_data(river_name, start_date, end_date, parameter_id)
-  #   results = []
-  #   analytics = joins(:location).where(locations: {river_name: river_name}).in_period(start_date, end_date)
-  #   periods = analytics.map { |a| a.period }.uniq
-
-  #   periods.each do |period|
-  #     results << {
-  #       period: period,
-  #       values: analytics.where(period: period).sort_by{|a| a.location_id}
-  #     }
-  #   end
-  #   results
-  # end
-
 end

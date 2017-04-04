@@ -42,13 +42,23 @@
             <td><%= param.name%></td>
             <td><%= param.unit%></td>
             <% @analytics.each do |analytic| %>
-              <% analytic.analytic_parameters.where(parameter_id: param.id).each do |analytic_param| %>
-                <td class=<%= analytic_value_class(analytic_param.value, param.id) %>><%= analytic_param.value %></td>
+              <% selected_analytic_params = analytic.analytic_parameters.where(parameter_id: param.id) %>
+              <% if selected_analytic_params.any? %>
+                <% selected_analytic_params.each do |analytic_param| %>
+                  <td class=<%= analytic_value_class(analytic_param.value, param.id) %>><%= analytic_param.value %></td>
+                <% end %>
+              <% else %>
+                <td class=<%= analytic_value_class(0, param.id) %>>0</td>
               <% end %>
             <% end %>
             <% @criteria.each do |criterium| %>
-              <% criterium.criterium_parameters.where(parameter_id: param.id).each do |criterium_param| %>
-                <td><%= criterium_param.value %></td>
+              <% selected_criterium_params = criterium.criterium_parameters.where(parameter_id: param.id) %>
+              <% if selected_criterium_params.any? %>
+                <% selected_criterium_params.each do |criterium_param| %>
+                  <td><%= criterium_param.value %></td>
+                <% end %>
+              <% else %>
+                <td>0</td>
               <% end %>
             <% end %>
           </tr>

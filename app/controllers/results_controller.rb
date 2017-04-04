@@ -1,7 +1,6 @@
 class ResultsController < ApplicationController
   
   def analytics
-    byebug
     @rivers = Location::RIVERS
     @criteria = Criterium.all
   end
@@ -53,27 +52,29 @@ class ResultsController < ApplicationController
   end
 
   def save_map_image_as_pdf
-    save_download_information(params, "map_location")
-
     @locations = Location.by_river_name(session[:location_params]["river_name"])
+    
+    if @locations.any?
+      save_download_information(params, "map_location")
+    end
     
     render_as_pdf('results/maps.pdf.erb')
   end
 
   def save_analytic_as_pdf
-    save_download_information(params, "analytics")
-
     @criteria = Criterium.all
     @selected_criterium = Criterium.find(session[:params]["criterium"])
     @parameter_categories = ParameterCategory.all
     @analytics = Analytic.by_river_name_and_period(session[:params]["river_name"], session[:params]["period_date"])
     
+    if @analytics.any?
+      save_download_information(params, "analytics")  
+    end
+
     render_as_pdf('results/analytics.pdf.erb')
   end
 
   def save_analytic_chart_as_pdf
-    save_download_information(params, "analytic_chart")
-    
     start_date = DateTime.new(session[:chart]["start"].to_f, 1, 1)
     end_date = DateTime.new(session[:chart]["end"].to_f, 12, 31) 
     parameter = Parameter.find(session[:chart]["parameter"])
@@ -85,19 +86,22 @@ class ResultsController < ApplicationController
     gon.data << criterium_data
     gon.unit = parameter.unit
     
+    if gon.data.any?
+      save_download_information(params, "analytic_chart")
+    end
     render_as_pdf('results/analytic_chart.pdf.erb')
   end
 
   private
 
   def save_download_information(params, result_type)
-    byebug
-    unless current_user.present?
-      download_history_service = DownloadHistoryService.new(params[:email], params[:purpose_of_download], result_type)
-    else
-      download_history_service = DownloadHistoryService.new(current_user.email, "download_by_operator", result_type)
+    email = params[:email]
+    purpose_of_download = params[:purpose_of_download]
+    if current_user.present?
+      email = current_user.email
+      purpose_of_download = "download_by_operator"
     end
-    download_history_service.save_to_DB
+    DownloadHistoryService.new(email, purpose_of_download, result_type).save_to_DB
   end
 
   def render_as_pdf(template)

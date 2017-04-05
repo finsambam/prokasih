@@ -7,6 +7,7 @@
       <th>Nama</th>
       <th>Email</th>
       <th>Hak Akses</th>
+      <th>Tanggal Dibuat</th>
     </tr>
   </thead>
   <% @users.each do |u| %>
@@ -25,7 +26,8 @@
         </div>
       </td>
       <td><%= "#{u.email}" %></td>
-      <td><%= "#{u.roles.collect{|r| r.name}}" %></td>
+      <td><%= "#{u.roles.collect{|r| r.name}.first}" %></td>
+      <td><%= "#{u.created_at.strftime('%d-%m-%Y')}" %></td>
     </tr>
   <% end %>
 </table>

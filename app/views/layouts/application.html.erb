@@ -36,9 +36,6 @@
             <% if current_user.present? && current_user.roles.map{ |role| role.name}.include?("Administrator")%>
               <% if can? :read, User %>
                 <li><%= link_to 'User', users_path %></li>
-                <% if can? :read, DownloadHistory %>
-                  <li><%= link_to 'Rekam Data Unduh', download_history_path %></li>
-                <% end %>
               <% end %>
             <% end %>
             <li class="dropdown">
@@ -82,6 +79,9 @@
               <% end %>
               <% if can? :read, Documentation %>
                 <li><%= link_to 'Dokumentasi', list_documentations_path %></li>
+              <% end %>
+              <% if can? :read, DownloadHistory %>
+                <li><%= link_to 'Rekam Data Unduh', download_history_path %></li>
               <% end %>
             <% else %>
               <li><%= link_to 'Artikel', articles_path %></li>

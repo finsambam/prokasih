@@ -6,6 +6,7 @@
     <tr>
       <th>Judul</th>
       <th>Deskripsi</th>
+      <th>Tanggal dibuat</th>
       <th>Foto</th>
     </tr>
   </thead>
@@ -25,6 +26,7 @@
         </div>
       </td>
       <td><%= "#{d.description}" %></td>
+      <td><%= "#{d.created_at.strftime('%d-%m-%Y')}" %></td>
       <td><%= image_tag d.image_url(:thumb) if d.image? %></td>
     </tr>
   <% end %>

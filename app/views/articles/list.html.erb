@@ -23,7 +23,7 @@
           </ul>
         </div>
       </td>
-      <td><%= "#{a.created_at}" %></td>
+      <td><%= "#{a.created_at.strftime('%d-%m-%Y')}" %></td>
     </tr>
   <% end %>
 </table>

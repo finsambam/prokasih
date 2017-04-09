@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :parameters, :except => 'show'
   resources :criteria, :except => 'show'
   
-  resources :articles, :except => 'show' do
+  resources :articles do
     collection do
       get 'list'
     end

@@ -1,0 +1,16 @@
+<div class="article">
+  <div class="header-content">
+    <h3 class="page-header" style="letter-spacing: -1px;font-weight: bold;"><%= @article.title.titleize%></h3>
+  </div>
+  <div class="author-content">
+    <span>Ditulis oleh: <%= @article.user.name%></span>
+    <span>Tanggal: <%= "#{@article.created_at.strftime('%d-%m-%Y %H:%M')}"%></span>
+  </div>
+  <div class="article-content">
+    <%= image_tag(@article.documentation.image_url) if @article.documentation_id? %>
+    <%= @article.content.html_safe%>
+    <br/>
+    <br/>
+    <%= link_to "<i class='fa fa-reply'></i> Kembali".html_safe, articles_path, class: "btn btn-success" %>
+  </div>
+</div>

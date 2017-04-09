@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require turbolinks_transition
 //= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 //= require datatables.net/js/jquery.dataTables
 //= require datatables.net-bs/js/dataTables.bootstrap

@@ -30,7 +30,17 @@
   $(document).ready(function(){
 
     $('.wysiwyg-editor').each(function(i, elem) {
-      $(elem).wysihtml5();
+      $(elem).wysihtml5({
+        useLineBreaks: false,
+        toolbar:{
+          "image": false,
+          "font-styles": false,
+          "emphasis": true,
+          "lists": true,
+          "html": false,
+          "link": false  
+        } 
+      });
     });
 
   })

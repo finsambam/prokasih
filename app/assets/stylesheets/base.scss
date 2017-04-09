@@ -231,3 +231,36 @@ table>thead>tr>th {
   font-size: 27px;
   margin-top: 0 !important;
 }
+
+.article{
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.author-content {
+}
+
+.article-content {
+  padding-top: 14px;
+  padding-bottom: 25px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.article-content img {
+  width: 100%;
+  padding-bottom: 14px;
+}
+
+a{
+  color: #449d44;
+}
+
+a:hover{
+  color: #5cb85c;
+}
+
+.media-object {
+  width: 150px !important;
+  height: 113px !important;
+}

@@ -1,0 +1,3 @@
+$('.modal').remove();
+$('body').append('<%= escape_javascript (render "modal_preview") %>');
+$('#preview-modal').modal('show');

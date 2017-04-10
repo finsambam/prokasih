@@ -264,3 +264,21 @@ a:hover{
   width: 150px !important;
   height: 113px !important;
 }
+
+.thumbnail img {
+  height: 110px;
+}
+
+.modal-body img{
+  width: 100%;
+}
+
+.modal-body{
+  text-align: center;
+  font-style: italic;
+}
+
+.modal-body .image-desc{
+  color: #848484;
+  padding-top: 10px;
+}

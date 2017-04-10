@@ -1,27 +1,34 @@
 <div class="header-content">
   <h2 class="page-header">Artikel</h2>
 </div>
-<% @articles.each do |article|%>
-  <div class="media">
-    <div class="media-left">
-      <a href="#">
-        <% if article.documentation_id? %>
-          <%= image_tag(article.documentation.image_url(:thumb), :class => "media-object") %>
-        <% else %>
-          <%= image_tag("no_image.png", :class => "media-object")%>
-          <!-- <img class="media-object" src="..." alt="...">   -->
-        <% end %>
-      </a>
+<% if @articles.any? %>
+  <% @articles.each do |article|%>
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          <% if article.documentation_id? %>
+            <%= image_tag(article.documentation.image_url(:thumb), :class => "media-object") %>
+          <% else %>
+            <%= image_tag("no_image.png", :class => "media-object")%>
+          <% end %>
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <%= article.title.titleize%>
+        </h4>
+        <small><%= "#{article.created_at.strftime('%d-%m-%Y %H:%M')}" %></small>
+        <br />
+        <%=article.content_preview%>
+        <%= link_to "Selengkapnya", article_path(article.id) %>
+      </div>
     </div>
-    <div class="media-body">
-      <h4 class="media-heading">
-        <%= article.title.titleize%>
-      </h4>
-      <small><%= "#{article.created_at.strftime('%d-%m-%Y %H:%M')}" %></small>
-      <br />
-      <%=article.content_preview%>
-      <%= link_to "Selengkapnya", article_path(article.id) %>
-    </div>
-  </div>
+  <% end %>
+  <%= will_paginate @articles, :page_links => false, renderer: BootstrapPagination::Rails %>  
+<% else %>
+  <table id="empty-result" class="table table-striped table-bordered">
+    <tr>
+      <td>Data tidak ditemukan</td>
+    </tr>
+  </table>
 <% end %>
-<%= will_paginate @articles, :page_links => false, renderer: BootstrapPagination::Rails %>

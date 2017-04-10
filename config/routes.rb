@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :documentations, :except => 'show' do
+  resources :documentations do
     collection do
       get 'list'
     end

@@ -4,4 +4,5 @@ class Documentation < ApplicationRecord
 
 	has_one :article
 	mount_uploader :image, ImageUploader
+	self.per_page = 2
 end

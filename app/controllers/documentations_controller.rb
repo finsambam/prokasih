@@ -1,9 +1,15 @@
 class DocumentationsController < ApplicationController
-  before_filter :authenticate_user!, except: :index
-  before_filter :find_documentation, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :find_documentation, only: [:edit, :update, :destroy, :show]
   
   def index
-    
+    @documentations = Documentation.paginate(:page => params[:page]).order('created_at DESC')    
+  end
+
+  def show
+    respond_to do |format|
+      format.js
+    end
   end
 
   # page for administrator

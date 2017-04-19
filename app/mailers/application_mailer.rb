@@ -14,4 +14,8 @@ class ApplicationMailer < ActionMailer::Base
   	end
   	mail(to: email, subject: isReply ? 'Balasan Diskusi Prokasih' : 'Diskusi Prokasih') 
   end
+
+  def user_notification(user)
+    
+  end
 end

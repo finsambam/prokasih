@@ -24,11 +24,11 @@
   <%= form_tag(discussions_path(format: :js), method: 'post', remote: true, class: 'clearfix') do %>
     <div class="col-md-6 form-group">
       <%= label_tag :name, "Nama", class: "sr-only" %>
-      <%= text_field_tag :name, current_user.present? ? current_user.name : nil, class: "form-control", placeholder: "Nama", :readonly => true %>
+      <%= text_field_tag :name, current_user.present? ? current_user.name : nil, class: "form-control", placeholder: "Nama", :readonly => current_user.present? ? true : false %>
     </div>
     <div class="col-md-6 form-group">
       <%= label_tag :email, "Email", class: "sr-only" %>
-      <%= text_field_tag :email, current_user.present? ? current_user.email : nil, class: "form-control", placeholder: "Email", :readonly => true %>
+      <%= text_field_tag :email, current_user.present? ? current_user.email : nil, class: "form-control", placeholder: "Email", :readonly => current_user.present? ? true : false %>
     </div>
     <div class="col-md-12 form-group">
       <%= label_tag :message, "Pesan", class: "sr-only" %>

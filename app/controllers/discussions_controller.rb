@@ -9,7 +9,8 @@ class DiscussionsController < ApplicationController
 		@comment.parent_id = params[:parent_id] if params[:parent_id].present?
 		if @comment.save!
 			@response = {success: true}
-			ApplicationMailer.discuss_notification(@comment, @comment.parent_id.present? ? true : false).deliver
+			job_params = {type: "discuss", comment: @comment}
+			SendEmailJob.set(wait: 10.seconds).perform_later(job_params)
 		else
 			@response = {success: false, error: "Terjadi kesalahan pada saat penyimpanan data, silakan coba lagi"}
 		end

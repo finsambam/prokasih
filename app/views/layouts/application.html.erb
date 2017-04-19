@@ -87,7 +87,7 @@
               <li><%= link_to 'Artikel', articles_path %></li>
               <li><%= link_to 'Dokumentasi', documentations_path %></li>
             <% end %>
-            <li><a href="#">Diskusi</a></li>
+            <li><%= link_to 'Diskusi', discussions_path %></li>
           </ul>
           <ul class="nav navbar-nav pull-right">
             <% if user_signed_in? %>

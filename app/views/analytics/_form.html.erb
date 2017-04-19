@@ -44,8 +44,8 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-8">
-            <%= link_to "Batal", { controller: "analytics", action: "index" }, class: "btn btn-default" %>
-            <a class="btn btn-success btnNext">Lanjut</a>
+            <%= link_to "<i class='fa fa-reply'></i> Batal".html_safe, { controller: "analytics", action: "index" }, class: "btn btn-default" %>
+            <a class="btn btn-success btnNext">Lanjut <i class='fa fa-share'></i></a>
           </div>
         </div>
       </div>
@@ -65,11 +65,13 @@
           <% end %>
           <div class="form-group">
             <div class="col-sm-offset-3 col-sm-8">
-              <a class="btn btn-default btnPrevious">Kembali</a>
+              <a class="btn btn-default btnPrevious"><i class='fa fa-reply'></i>Kembali</a>
               <% if category == @parameter_categories.last %>
-                <%= f.submit "Simpan", class: "btn btn-success" %>
+                <%= button_tag(type: "submit", class: "btn btn-success") do %>
+                  <i class="fa fa-floppy-o"></i> Simpan
+                <% end %>
               <% else %>
-                <a class="btn btn-success btnNext">Lanjut</a>
+                <a class="btn btn-success btnNext">Lanjut <i class='fa fa-share'></i></a>
               <% end %>
             </div>
           </div>

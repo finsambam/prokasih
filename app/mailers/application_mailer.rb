@@ -1,4 +1,17 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'finsambam@gmail.com'
   layout 'mailer'
+
+  def discuss_notification(comment, isReply)
+  	@comment = comment
+  	@isReply = isReply
+  	if isReply
+  		@name = @comment.parent.name
+  		email = @comment.parent.email
+  	else
+  		@name = @comment.name
+  		email = @comment.email
+  	end
+  	mail(to: email, subject: isReply ? 'Balasan Diskusi Prokasih' : 'Diskusi Prokasih') 
+  end
 end

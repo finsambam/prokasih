@@ -7,11 +7,9 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li><%= link_to_if(can?(:edit, Analytic), "Ubah", edit_analytic_path(a.id)) {} %></li>
+          <li><%= link_to_if(can?(:edit, Analytic), "<i class='fa fa-pencil-square-o'></i> Ubah".html_safe, edit_analytic_path(a.id)) {} %></li>
           <li role="separator" class="divider"></li>
-          <li><%= link_to_if(can?(:show, Analytic), "Detail", analytic_path(a.id)) {} %></li>
-          <li role="separator" class="divider"></li>
-          <li><%= link_to_if(can?(:delete, a), "Hapus", a, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
+          <li><%= link_to_if(can?(:delete, a), "<i class='fa fa-trash'></i> Hapus".html_safe, a, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
         </ul>
       </div>
     </td>

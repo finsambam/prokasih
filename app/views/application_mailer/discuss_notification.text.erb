@@ -1,0 +1,15 @@
+Halo <%= @name %>
+<% if @isReply %>
+  Anda memiliki balasan di komentar anda dari:
+	
+		Dari: <%= @comment.name%>
+		Waktu: <%= @comment.created_at%>
+		Pesan: <%= @comment.message%>
+	
+<% else %>
+	
+  Terima kasih telah memposting komentar di web www.prokasih.com. Kami akan memberikan notifikasi jika anda memiliki balasan di komentar anda.
+	
+<% end %>
+
+Admin Prokasih

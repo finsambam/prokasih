@@ -1,0 +1,60 @@
+<div class="header-content">
+  <h2 class="page-header">Diskusi</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <ul id="comments" class="comments">
+      <% @comments.each do |comment| %>
+        <%= render :partial => 'comment', :locals => {:comment => comment} %>
+      <% end %>
+    </ul>
+  </div>
+  <div class="col-md-12 center">
+    <%= link_to "<i class='fa fa-cog'></i> Lihat data lainnya".html_safe, get_more_data_discussions_path, class: "btn btn-success", remote: true %>
+  </div>
+</div>
+<br/>
+<div id="discussionForm" class="well">
+  <div id="alert-reply" class="alert alert-success alert-dismissible fade in hide" role="alert">
+    <p class="content"></p>
+    <p><button id="backBtn" type="button" class="btn btn-default"><i class="fa fa-times"></i>Batal</button></p>
+  </div>  
+  <h4>Tinggalkan pesan</h4>
+  <%= form_tag(discussions_path(format: :js), method: 'post', remote: true, class: 'clearfix') do %>
+    <div class="col-md-6 form-group">
+      <%= label_tag :name, "Nama", class: "sr-only" %>
+      <%= text_field_tag :name, current_user.present? ? current_user.name : nil, class: "form-control", placeholder: "Nama", :readonly => true %>
+    </div>
+    <div class="col-md-6 form-group">
+      <%= label_tag :email, "Email", class: "sr-only" %>
+      <%= text_field_tag :email, current_user.present? ? current_user.email : nil, class: "form-control", placeholder: "Email", :readonly => true %>
+    </div>
+    <div class="col-md-12 form-group">
+      <%= label_tag :message, "Pesan", class: "sr-only" %>
+      <%= text_area_tag :message, nil, class: "form-control", placeholder: "Pesan" %>
+    </div>
+    <div class="col-md-12 form-group text-right">
+      <%= hidden_field_tag 'parent_id'%>
+      <%= button_tag(type: "submit", class: "btn btn-success") do %>
+        <i class="fa fa-floppy-o"></i> Simpan
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("ul#comments").on("click", "a.reply-link", function(){
+      var parent_id = $(this).data("comment-id");
+      var sender = $(this).data("sender");
+      $("#parent_id").val(parent_id);
+      $("#alert-reply p.content").html("Anda sedang membalas komentar dari <strong>" + sender + "</strong>");
+      $("#alert-reply").removeClass("hide");
+    });
+
+    $("#backBtn").on("click", function(){
+      $("#parent_id").val("");
+      $("#alert-reply").addClass("hide");
+    })
+  });
+</script>

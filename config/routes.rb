@@ -29,6 +29,13 @@ Rails.application.routes.draw do
       get 'filter'
     end
   end
+
+  resources :discussions do 
+    collection do
+      get 'get_more_data'
+    end
+  end
+
   get '/home', to: 'home#index'
   get '/results/analytics', to: 'results#analytics'
   get '/results/analytics/chart', to: 'results#analytic_charts'
@@ -41,4 +48,8 @@ Rails.application.routes.draw do
   get '/results/save_map_image_as_pdf', to: 'results#save_map_image_as_pdf'
   get '/download_history', to: 'download_histories#index'
   root to: 'home#index'
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

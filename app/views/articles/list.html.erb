@@ -17,9 +17,9 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li><%= link_to_if(can?(:edit, Article), "Ubah", edit_article_path(a.id)) {} %></li>
+            <li><%= link_to_if(can?(:edit, Article), "<i class='fa fa-pencil-square-o'></i> Ubah".html_safe, edit_article_path(a.id)) {} %></li>
             <li role="separator" class="divider"></li>
-            <li><%= link_to_if(can?(:delete, a), "Hapus", a, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
+            <li><%= link_to_if(can?(:delete, a), "<i class='fa fa-times'></i> Hapus".html_safe, a, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
           </ul>
         </div>
       </td>
@@ -33,7 +33,7 @@
       dom: "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>",
       buttons: [
         {
-          text: 'Tambah',
+          text: '<i class="fa fa-plus"></i> Tambah',
           className: 'btn btn-success',
           action: function(e, dt, node, config) {
             window.location.href = '/articles/new';

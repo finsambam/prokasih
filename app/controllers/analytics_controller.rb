@@ -8,7 +8,11 @@ class AnalyticsController < ApplicationController
   end
 
   def filter
-    @analytics = Analytic.in_period(DateTime.parse(params['start_from_date']), DateTime.parse(params['end_to_date']))
+    if params['start_from_date'].present? && params['end_to_date'].present?
+      @analytics = Analytic.in_period(DateTime.parse(params['start_from_date']), DateTime.parse(params['end_to_date']))
+      else
+      @analytics = Analytic.order('created_at DESC')
+    end
     respond_to do |format|
       format.js
     end

@@ -1,0 +1,20 @@
+<li class="comment">
+  <div class="clearfix">
+    <h4 class="pull-left"><%= comment.name%> <small><i class="fa fa-calendar-o"></i> <%= comment.created_at.strftime('%d-%m-%Y %H:%M')%></small></h4>
+  </div>
+  <p>
+    <em><%= comment.message%></em>
+  </p>
+  <div class="clearfix">
+    <p class="pull-left">
+      <a class="reply-link" href="#discussionForm" data-sender="<%= comment.name%>" data-comment-id="<%= comment.id%>" data-turbolinks="false">Balas</a>
+    </p>
+  </div>
+  <ul id="<%= "child_comments_#{comment.id}" %>">
+    <% if comment.childs.any? %>
+      <% comment.childs.each do |child| %>
+        <%= render :partial => 'child_comment', :locals => {:comment => comment, :child => child} %>
+      <% end %>
+    <% end %>
+  </ul>
+</li>

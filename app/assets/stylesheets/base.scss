@@ -282,3 +282,31 @@ a:hover{
   color: #848484;
   padding-top: 10px;
 }
+
+#comments, #comments li {
+  margin: 0;
+  padding: 0;
+}
+ 
+#comments>li {
+  list-style: none;
+  border-bottom: 1px solid #BCF5A9;
+  margin-bottom: 7px;
+}
+
+#comments>li h4 {
+  font-weight: bolder;
+}
+
+/*#comments>li p.pull-right {
+  color: #5cb85c;
+}*/
+
+.center {
+  text-align: center;
+}
+
+.child-comment{
+  list-style: none;
+  font-size: 13px;
+}

@@ -1,28 +1,83 @@
-<form class="form-horizontal">
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+<div class="article-container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <% @articles.each do |article| %>
+        <div class="item">
+          <% if article.documentation_id? %>
+            <%= image_tag(article.documentation.image_url) %>
+          <% else %>
+            <%= image_tag("no_image.png")%>
+          <% end %>
+           <div class="carousel-caption">
+            <h4>
+              <%= link_to article.title, article_path(article.id) %>
+            </h4>
+            <p><%=article.content_preview%></p>
+          </div>
+        </div><!-- End Item -->
+      <% end %>
+    </div><!-- End Carousel Inner -->
+    <ul class="list-group col-sm-4">
+      <% @article_titles.each_with_index do |title, index| %>
+        <li data-target="#myCarousel" data-slide-to="<%= index %>" class="list-group-item"><h4><%= title %></h4></li>
+      <% end %>
+    </ul>
+    <!-- Controls -->
+    <div class="carousel-controls">
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Remember me
-        </label>
+  </div><!-- End Carousel -->
+</div>
+
+<div class="panel-container row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>Portal Prokasih menyediakan data terkait dengan kebersihan air sungai di kota Tegal berdasarkan dari analisis dan perhitungan yang dilakukan oleh para analis dari kementrian lingkunang hidup. Silakan unduh data yang diperlukan untuk menunjang kegiatan anda. kami menyediakan data tabel analisis, data grafik analisis dan data lokasi titik pengambilan sampel air.</p>
+        <div class="row big-button">
+          <div class="col-md-4">
+            <a href="/results/analytics">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <small class="big-button-title">Data Analisis</small>
+                  <h3 class="count">Tabel</h3>
+                  <i class="fa fa-table"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/results/analytics/chart">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <small class="big-button-title">Data Analisis+</small>
+                  <h3 class="count">Grafik</h3>
+                  <i class="fa fa-line-chart"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/results/location">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <small class="big-button-title">Data Analisis</small>
+                  <h3 class="count">Peta</h3>
+                  <i class="fa fa-globe"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
-  </div>
-</form>
+</div>
+
+<%= javascript_include_tag 'home' %>

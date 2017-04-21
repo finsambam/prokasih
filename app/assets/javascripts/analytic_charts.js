@@ -1,53 +1,21 @@
 //= require chart.js/dist/Chart.bundle
 
-$( document ).on('turbolinks:load', function() {
-  // Init datepicker
-  var dateElement = $('.datepicker').datepicker({
-    format: "yyyy",
-    startView: 2,
-    minViewMode: 2,
-    maxViewMode: 2
-  });
+// Init datepicker
+var dateElement = $('.datepicker').datepicker({
+  format: "yyyy",
+  startView: 2,
+  minViewMode: 2,
+  maxViewMode: 2
+});
 
-  // set timestamp hiden element and hide datepicker when user change months
-  dateElement.on("changeYear", function(e){
-    var elementId = e.target.id;
-    if (elementId === "start_period") {
-      $('#end_period').datepicker("update", e.date);
-    }
-    // $('#'+elementId+'_date').val(e.date);
-    $(e.target).datepicker("hide");
-  });
-
-  $("#river_name").change(function(){
-    if (isAllFieldFilled()) {
-      getChartData();
-    }
-  })
-
-  $("#parameter").change(function(){
-    if (isAllFieldFilled()) {
-      getChartData();
-    }
-  })
-
-  $("#start_period").change(function(){
-    if (isAllFieldFilled()) {
-      getChartData();
-    }
-  })
-
-  $("#end_period").change(function(){
-    if (isAllFieldFilled()) {
-      getChartData();
-    }
-  })
-
-  $("#criterium").change(function(){
-    if (isAllFieldFilled()) {
-      getChartData();
-    }
-  })
+// set timestamp hiden element and hide datepicker when user change months
+dateElement.on("changeYear", function(e){
+  var elementId = e.target.id;
+  if (elementId === "start_period") {
+    $('#end_period').datepicker("update", e.date);
+  }
+  // $('#'+elementId+'_date').val(e.date);
+  $(e.target).datepicker("hide");
 });
 
 var dynamicColors = function() {
@@ -160,6 +128,8 @@ var generateChart = function(response){
   };
   $("table#table-empty").hide();
   // Init chart.js
+  if (window.myLine != null) {window.myLine.destroy();};
+  
   var ctx = document.getElementById("myChart");
   ctx.style.display="";
   var myChart = new Chart(ctx, {
@@ -202,4 +172,36 @@ var generateChart = function(response){
         }
     }
   });
+
+  window.myLine = myChart;
 }
+
+$("#river_name").change(function(){
+  if (isAllFieldFilled()) {
+    getChartData();
+  }
+})
+
+$("#parameter").change(function(){
+  if (isAllFieldFilled()) {
+    getChartData();
+  }
+})
+
+$("#start_period").change(function(){
+  if (isAllFieldFilled()) {
+    getChartData();
+  }
+})
+
+$("#end_period").change(function(){
+  if (isAllFieldFilled()) {
+    getChartData();
+  }
+})
+
+$("#criterium").change(function(){
+  if (isAllFieldFilled()) {
+    getChartData();
+  }
+})

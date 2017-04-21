@@ -7,8 +7,11 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-3 col-sm-8">
-      <%= link_to "Batal", { controller: "parameter_categories", action: "index" }, class: "btn btn-default" %>
-      <%= f.submit "Simpan", class: "btn btn-success" %>
+      <%= link_to "<i class='fa fa-reply'></i> Batal".html_safe, { controller: "parameter_categories", action: "index" }, class: "btn btn-default" %>
+      <%#= f.submit "Simpan", class: "btn btn-success" %>
+      <%= button_tag(type: "submit", class: "btn btn-success") do %>
+        <i class="fa fa-floppy-o"></i> Simpan
+      <% end %>
     </div>
   </div>
 <% end %>

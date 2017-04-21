@@ -32,9 +32,9 @@
 <div class="row">
   <div class="col-md-2">
     <% if current_user.present? %>
-      <%= link_to 'Unduh(PDF)', results_save_analytic_chart_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-chart-pdf", target: :_blank, disabled: true%>
+      <%= link_to '<i class="fa fa-download"></i> Unduh(PDF)'.html_safe, results_save_analytic_chart_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-chart-pdf", target: :_blank, disabled: true%>
     <% else %>
-      <button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#download-confirmation-modal" id="download-chart-pdf" disabled>Unduh(PDF)</button>
+      <button type="button" class="btn btn-success disabled" id="download-chart-pdf" disabled><i class="fa fa-download"></i> Unduh(PDF)</button>
     <% end %>
   </div>
 </div>
@@ -49,6 +49,14 @@
   </div>
 </div>
 
-<%= render :partial => 'download_confirmation', :locals => {:form_action => results_save_analytic_chart_as_pdf_path(:format => :pdf)} %>
+<script type="text/javascript">
+  $('button#download-chart-pdf').on('click', function(){
+    $("#download-confirmation-modal").remove();
 
+    $('body').append('<%= escape_javascript (render :partial => "download_confirmation", :locals => {:form_action => results_save_analytic_chart_as_pdf_path(:format => :pdf)}) %>');
+
+    $('#download-confirmation-modal').modal('show');
+  })
+</script>
 <%= javascript_include_tag 'analytic_charts' %>
+<%= javascript_include_tag 'download_confirmation' %>

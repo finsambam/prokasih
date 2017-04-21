@@ -23,11 +23,11 @@
           <ul class="dropdown-menu">
             <% if(can?(:edit, Location)) %>
               <li>
-                <a href="#" class="edit-location" data-id= <%= l.id %> > Ubah </a>
+                <a href="#" class="edit-location" data-id= <%= l.id %> ><i class='fa fa-pencil-square-o'></i> Ubah </a>
               </li>
             <% end %>
             <li role="separator" class="divider"></li>
-            <li><%= link_to_if(can?(:delete, l), "Hapus", l, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
+            <li><%= link_to_if(can?(:delete, l), "<i class='fa fa-times'></i> Hapus".html_safe, l, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
           </ul>
         </div>
       </td>
@@ -43,7 +43,7 @@
       dom: "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>",
       buttons: [
         {
-          text: 'Tambah',
+          text: '<i class="fa fa-plus"></i> Tambah',
           className: 'btn btn-success',
           action: function(e, dt, node, config) {
             window.location.href = '/locations/new';

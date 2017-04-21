@@ -21,28 +21,12 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-          <%= submit_tag "Unduh(PDF)", id:'submit-btn', class: "btn btn-success disabled", disabled: true %>
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class='fa fa-reply'></i> Batal</button>
+          <%= button_tag(type: "submit", id:'submit-btn', class: "btn btn-success disabled", disabled: true) do %>
+            <i class="fa fa-download"></i> Unduh(PDF)
+          <% end %>
         </div>
       <% end %>
     </div>
   </div>  
 </div>
-<script type="text/javascript">
-  $( document ).on('turbolinks:load', function() {
-    $("#email").change(function(){
-      var email = $("#email").val();
-      var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;  
-      if (email != null) {
-        if (testEmail.test(email)) {
-          $('#submit-btn').removeClass('disabled');
-          $('#submit-btn').prop('disabled', false);
-          return true;
-        };
-      };
-      $('#submit-btn').addClass('disabled');
-      $('#submit-btn').prop('disabled', true);
-      return false;
-    })
-  });
-</script>

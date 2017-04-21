@@ -15,9 +15,9 @@
   </div>
   <div class="col-md-2">
     <% if current_user.present? %>
-      <%= link_to 'Unduh(PDF)', results_save_map_image_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-map-pdf", target: :_blank, disabled: true%>
+      <%= link_to '<i class="fa fa-download"></i> Unduh(PDF)'.html_safe, results_save_map_image_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-map-pdf", target: :_blank, disabled: true%>
     <% else %>
-      <button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#download-confirmation-modal" id="download-map-pdf" disabled>Unduh(PDF)</button>
+      <button type="button" class="btn btn-success disabled" id="download-map-pdf" disabled><i class="fa fa-download"></i> Unduh(PDF)</button>
     <% end %>
   </div>
 </div>
@@ -29,13 +29,18 @@
   </table>
 </div>
 
-<%= render :partial => 'download_confirmation', :locals => {:form_action => results_save_map_image_as_pdf_path(:format => :pdf)} %>
-
 <script type="text/javascript">
-  $( document ).on('turbolinks:load', function() {
-    $("#river_name").change(function(){
-      $('#filter').trigger('submit');
-    })
+  $("#river_name").on('change', function(){
+    $('#filter').trigger('submit');
   });
 
+  $('button#download-map-pdf').on('click', function(){
+    $("#download-confirmation-modal").remove();
+
+    $('body').append('<%= escape_javascript (render :partial => "download_confirmation", :locals => {:form_action => results_save_map_image_as_pdf_path(:format => :pdf)}) %>');
+
+    $('#download-confirmation-modal').modal('show');
+  })
 </script>
+
+<%= javascript_include_tag 'download_confirmation' %>

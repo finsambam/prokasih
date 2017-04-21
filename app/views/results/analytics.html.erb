@@ -22,9 +22,9 @@
   </div>
   <div class="col-md-2">
     <% if current_user.present? %>
-      <%= link_to 'Unduh(PDF)', results_save_analytic_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-pdf", target: :_blank, disabled: true%>
+      <%= link_to '<i class="fa fa-download"></i> Unduh(PDF)'.html_safe, results_save_analytic_as_pdf_path(:format => :pdf), :class => "btn btn-success disabled", id: "download-pdf", target: :_blank, disabled: true%>
     <% else %>
-      <button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#download-confirmation-modal" id="download-pdf" disabled>Unduh(PDF)</button>
+      <button type="button" class="btn btn-success disabled" id="download-pdf" disabled><i class="fa fa-download"></i> Unduh(PDF)</button>
     <% end %>
   </div>
 </div>
@@ -35,43 +35,8 @@
     </tr>
   </table>
 </div>
-<%= render :partial => 'download_confirmation', :locals => {:form_action => results_save_analytic_as_pdf_path(:format => :pdf)} %>
 
 <script type="text/javascript">
-  $( document ).on('turbolinks:load', function() {
-    $("#river_name").change(function(){
-      if (isAllFieldFilled()) {
-        $('#filter').trigger('submit');
-      };
-    })
-
-    $("#period").change(function(){
-      if (isAllFieldFilled()) {
-        $('#filter').trigger('submit');
-      };
-    })
-
-    $("#criterium").change(function(){
-      if (isAllFieldFilled()) {
-        $('#filter').trigger('submit');
-      };
-    })
-
-    var dateElement = $('.datepicker').datepicker({
-      format: "MM yyyy",
-      startView: 1,
-      minViewMode: 1,
-      maxViewMode: 2
-    });
-
-    // set timestamp hiden element and hide datepicker when user change months
-    dateElement.on("changeMonth", function(e){
-      var elementId = e.target.id;
-      $('#'+elementId+'_date').val(e.date);
-      $(e.target).datepicker("hide");
-    });
-  });
-
   var isAllFieldFilled = function(){
     var river = $("#river_name").val();
     var period = $("#period").val();
@@ -81,4 +46,45 @@
     };
     return false;
   }
+
+  $('button#download-pdf').on('click', function(){
+    $("#download-confirmation-modal").remove();
+
+    $('body').append('<%= escape_javascript (render :partial => "download_confirmation", :locals => {:form_action => results_save_analytic_as_pdf_path(:format => :pdf)}) %>');
+
+    $('#download-confirmation-modal').modal('show');
+  })
+
+  $("#river_name").on('change', function(){
+    if (isAllFieldFilled()) {
+      $('#filter').trigger('submit');
+    };
+  })
+
+  $("#period").on('change', function(){
+    if (isAllFieldFilled()) {
+      $('#filter').trigger('submit');
+    };
+  })
+
+  $("#criterium").on('change', function(){
+    if (isAllFieldFilled()) {
+      $('#filter').trigger('submit');
+    };
+  })
+
+  var dateElement = $('.datepicker').datepicker({
+    format: "MM yyyy",
+    startView: 1,
+    minViewMode: 1,
+    maxViewMode: 2
+  });
+
+  // set timestamp hiden element and hide datepicker when user change months
+  dateElement.on("changeMonth", function(e){
+    var elementId = e.target.id;
+    $('#'+elementId+'_date').val(e.date);
+    $(e.target).datepicker("hide");
+  });
 </script>
+<%= javascript_include_tag 'download_confirmation' %>

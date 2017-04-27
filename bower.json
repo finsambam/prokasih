@@ -17,7 +17,6 @@
   ],
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
-    "headroom.js": "https://unpkg.com/headroom.js/bower.zip",
     "font-awesome": "^4.7.0",
     "datatables.net": "^2.1.1",
     "datatables.net-bs": "^2.1.1",

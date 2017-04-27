@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311042115) do
+ActiveRecord::Schema.define(version: 20170419195313) do
 
   create_table "analytic_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "analytic_id"
@@ -32,9 +32,21 @@ ActiveRecord::Schema.define(version: 20170311042115) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
-    t.text     "content",    limit: 16777215
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.text     "content",          limit: 16777215
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "documentation_id"
+    t.integer  "user_id"
+    t.string   "content_preview"
+  end
+
+  create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "email"
+    t.string   "message"
+    t.integer  "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "criteria", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -51,6 +63,37 @@ ActiveRecord::Schema.define(version: 20170311042115) do
     t.datetime "updated_at",   null: false
     t.index ["criterium_id"], name: "index_criterium_parameters_on_criterium_id", using: :btree
     t.index ["parameter_id"], name: "index_criterium_parameters_on_parameter_id", using: :btree
+  end
+
+  create_table "delayed_jobs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "priority",                 default: 0, null: false
+    t.integer  "attempts",                 default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  end
+
+  create_table "documentations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "image"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "download_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "email"
+    t.string   "result_type"
+    t.string   "purpose_of_download"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "locations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

@@ -104,6 +104,10 @@ class UsersController < ApplicationController
       # set as staff when role_id not appear
       @user.roles << accessible_roles.find_by(name: "Staff") if params[:user][:role_id].blank?
 
+      # send email to new user
+      job_params = {type: "user_registration", user: @user, password: user_params[:password]}
+      SendEmailJob.set(wait: 10.seconds).perform_later(job_params)
+
       respond_to do |format|
         format.json { render :json => @user.to_json, :status => 200 }
         format.xml  { head :ok }

@@ -1,18 +1,18 @@
 <p>Halo <%= @name %></p>
 <% if @isReply %>
-	<p>
-	  Anda memiliki balasan di komentar anda dari:
-	</p>
-	<ul>
-		<li>Dari: <%= @comment.name%></li>
-		<li>Waktu: <%= @comment.created_at%></li>
-		<li>Pesan: <%= @comment.message%></li>
-	</ul>
+  <p>
+    Anda memiliki balasan di komentar anda dari:
+  </p>
+  <ul>
+    <li>Dari: <%= @comment.name%></li>
+    <li>Waktu: <%= @comment.created_at%></li>
+    <li>Pesan: <%= @comment.message%></li>
+  </ul>
 <% else %>
-	<p>
-	  Terima kasih telah memposting komentar di web www.prokasih.com. Kami akan memberikan notifikasi jika anda memiliki balasan di komentar anda.
-	</p>
+  <p>
+    Terima kasih telah memposting komentar di web www.prokasih.com. Kami akan memberikan notifikasi jika anda memiliki balasan di komentar anda.
+  </p>
 <% end %>
 <p>
-	Admin Prokasih
+  Admin Prokasih
 </p>

@@ -1,22 +1,22 @@
 /*font configuration*/
 @font-face {
   font-family: 'UniversCondensedMedium';
-  src: url('/assets/Univers-Condensed-Medium.eot');
+  src: url('Univers-Condensed-Medium.eot');
   src: url('Univers-Condensed-Medium.eot?#iefix') format('embedded-opentype'),
-    url('/assets/Univers-Condensed-Medium.woff') format('woff'),
-    url('/assets/Univers-Condensed-Medium.ttf') format('truetype'),
-    url('/assets/Univers-Condensed-Medium.svg#Univers-Condensed-Medium') format('svg');
+    url('Univers-Condensed-Medium.woff') format('woff'),
+    url('Univers-Condensed-Medium.ttf') format('truetype'),
+    url('Univers-Condensed-Medium.svg#Univers-Condensed-Medium') format('svg');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'HelveticaNeue';
-  src: url('/assets/HelveticaNeueRegular.eot');
+  src: url('HelveticaNeueRegular.eot');
   src: url('HelveticaNeueRegular.eot?#iefix') format('embedded-opentype'),
-    url('/assets/HelveticaNeueRegular.woff') format('woff'),
-    url('/assets/HelveticaNeueRegular.ttf') format('truetype'),
-    url('/assets/HelveticaNeueRegular.svg#HelveticaNeueRegular') format('svg');
+    url('HelveticaNeueRegular.woff') format('woff'),
+    url('HelveticaNeueRegular.ttf') format('truetype'),
+    url('HelveticaNeueRegular.svg#HelveticaNeueRegular') format('svg');
   font-weight: 100;
   font-style: normal;
 }

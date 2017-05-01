@@ -13,7 +13,7 @@ module Prokasih
     # -- all .rb files in that directory are automatically loaded.
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
 
-    config.assets.paths << Rails.root.join('/app/assets/fonts')
+    config.assets.paths << Rails.root.join('app','assets','fonts')
 
     # # Bower asset paths
     # root.join('vendor', 'assets', 'components').to_s.tap do |bower_path|

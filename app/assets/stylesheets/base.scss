@@ -23,7 +23,7 @@
 
 /*Body styles*/
 body.custom-background {
-	background-color: #002600;
+  background-color: #002600;
 }
 
 /*Override bootstrap navigation */
@@ -31,26 +31,26 @@ body.custom-background {
   border-radius: 0;
 }
 .custom-nav a{
-	color: #fff;
+  color: #fff;
 }
 .custom-nav .dropdown-menu a{
-	color: #fff;	
+  color: #fff;  
 }
 .custom-nav .dropdown.open>a{
-	background-color: #449d44;
-	border-color: #398439;
+  background-color: #449d44;
+  border-color: #398439;
 }
 .nav-color{
-	color: #fff;
+  color: #fff;
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
 .nav-color .navbar-toggle{
-	background-color: #5cb85c;
-  border-color: #398439;	
+  background-color: #5cb85c;
+  border-color: #398439;  
 }
 .nav-color .navbar-toggle .icon-bar{
-	background-color: #398439;
+  background-color: #398439;
 }
 .nav-color li a:hover, .nav-color li a:active{
   color: #fff;
@@ -66,28 +66,27 @@ body.custom-background {
 .container {
   max-width: 1000px;
   min-height: 700px;
-	margin-top: 25px;
-  /*margin-bottom: 25px;*/
-	padding-left: 0px;
-	padding-right: 0px;
+  margin-top: 25px;
+  padding-left: 0px;
+  padding-right: 0px;
   padding-bottom: 20px;
 }
 
 .container > #page-content {
-	padding-left: 15px;
-	padding-right: 15px;	
+  padding-left: 15px;
+  padding-right: 15px;  
 } 
 
 #page-wrapper {
-	background-color: #fff;
+  background-color: #fff;
 }
 
 /*Header styles*/
 .top-banner {
-	height: 120px;
+  height: 120px;
   padding-top: 13px;
-	margin: 0px auto;
-	background: image-url('logo-menlh-ri_tegal.png');
+  margin: 0px auto;
+  background: image-url('logo-menlh-ri_tegal.png');
 }
 
 /*fixed affix navifation*/
@@ -378,7 +377,7 @@ a:hover{
 }
 
 .footer{
-  width: 1000px;
+  max-width: 1000px;
   color: #fff;
   background-color: #5cb85c;
   border-color: #4cae4c;
@@ -388,4 +387,22 @@ a:hover{
   padding: 15px;
   text-align: center;
   font-size: 12px;
+}
+
+@media (min-width: 768px){
+  .footer {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px){
+  .footer {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px){
+  .footer {
+    width: 1170px;
+  }
 }

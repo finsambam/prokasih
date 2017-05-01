@@ -23,12 +23,16 @@ class DocumentationsController < ApplicationController
   end
 
   def create
-    @documentation = Documentation.new(documentation_params)
-    if @documentation.save!
-      redirect_to list_documentations_path
-    else
-      render 'new'
-    end 
+    begin
+      @documentation = Documentation.new(documentation_params)
+      if @documentation.save!
+        redirect_to list_documentations_path
+      else
+        render 'new'
+      end  
+    rescue Exception => e
+      render 'new'      
+    end
   end
 
   def edit

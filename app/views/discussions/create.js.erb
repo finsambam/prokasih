@@ -1,18 +1,18 @@
 <% if (@response[:success]) %>
-	<% if (@comment.parent_id.present?) %>
-		var item = $("<%= escape_javascript render(:partial => 'child_comment', :locals => { :comment => @comment.parent, :child => @comment }) %>").hide().fadeIn(1000);
-		$('#child_comments_<%= @comment.parent_id%>').prepend(item);
-		$("#parent_id").val("");
-      	$("#alert-reply").addClass("hide");
-	<% else %>
-		var item = $("<%= escape_javascript render(:partial => 'comment', :locals => { :comment => @comment }) %>").hide().fadeIn(1000);
-		$('#comments').prepend(item);
-	<% end %>
-	
-	<% unless current_user.present? %>
-		$("#discussionForm form").find("input[type=text]").val("");
-	<% end %>
-	$("#discussionForm form").find("textarea").val("");
+  <% if (@comment.parent_id.present?) %>
+    var item = $("<%= escape_javascript render(:partial => 'child_comment', :locals => { :comment => @comment.parent, :child => @comment }) %>").hide().fadeIn(1000);
+    $('#child_comments_<%= @comment.parent_id%>').prepend(item);
+    $("#parent_id").val("");
+        $("#alert-reply").addClass("hide");
+  <% else %>
+    var item = $("<%= escape_javascript render(:partial => 'comment', :locals => { :comment => @comment }) %>").hide().fadeIn(1000);
+    $('#comments').prepend(item);
+  <% end %>
+  
+  <% unless current_user.present? %>
+    $("#discussionForm form").find("input[type=text]").val("");
+  <% end %>
+  $("#discussionForm form").find("textarea").val("");
 <% else %>
-	alert(@response[:error])
+  alert(@response[:error])
 <% end %>

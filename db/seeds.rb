@@ -90,4 +90,7 @@ staffRole = Role.create("name"=>"Staff")
 userAdmin = User.create("email"=>"administrator@prokasih.com", "name"=>"Administrator Prokasih", "password"=>"123456", "password_confirmation"=>"123456")
 userAdmin.roles << adminRole
 
+userStaff = User.create("email"=>"staff@prokasih.com", "name"=>"Staff Prokasih", "password"=>"123456", "password_confirmation"=>"123456")
+userStaff.roles << staffRole
+
 userAdmin.articles.create("title"=>"Air bersih sumber kehidupan kita", "content"=>"<p>Banyak sekali diantara kita tidak perduli perduli akan kebersihan air dilingkungan kita. banyak sekali yang mencemari perairan diindonesia hanya untuk kepentingan mereka semata. padahal air menjadi sumber kehidupan setiap makhluk dibumi ini. Setiap makhluk memerlukan sedikitnya 75% air didalam tubuhnya.&nbsp;</p><p>Diindonesia tingkat pencemaran air sangatlah menghawatirkan, dimuali dari masyarakat yang membuang sampah ke sungai sampai para industri2 yang membuang limbahnya ke perairan menjadikan indonesia memiliki pencemaran perairan yang tinggi.</p><p>oleh karena itu kita sebagai masyarakat yang baik mari kita jaga lingkungan terutama perariran karena air adalah sumber kehidupan kita semua.&nbsp;</p>", "content_preview"=>"Banyak sekali diantara kita tidak perduli perduli akan kebersihan air dilingkungan kita. banyak sek")

@@ -39,11 +39,16 @@ class DocumentationsController < ApplicationController
   end
 
   def update
-    if @documentation.update_attributes(documentation_params)
-      redirect_to list_documentations_path
-    else
+    begin
+      if @documentation.update_attributes(documentation_params)
+        redirect_to list_documentations_path
+      else
+        render 'edit'
+      end  
+    rescue Exception => e
       render 'edit'
     end
+    
   end
 
   def destroy

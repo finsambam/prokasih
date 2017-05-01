@@ -20,55 +20,72 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    begin
+      @article = Article.new(article_params)
     
-    if params[:article][:image].present?
-      documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
-        d.image = params[:article][:image]
+      if params[:article][:image].present?
+        documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
+          d.image = params[:article][:image]
+        end
+        if documentation.errors.any?
+          @article.errors.add(:documentation, "Anda tidak dapat meng-upload foto lebih dari 1MB")
+          raise @article.errors.messages
+        end
+        @article.documentation = documentation
       end
-      @article.documentation = documentation
-    end
 
-    @article.content_preview = create_article_preview(params[:article][:content])
-    @article.user = current_user
+      @article.content_preview = create_article_preview(params[:article][:content])
+      @article.user = current_user
 
-    if @article.save!
-      redirect_to list_articles_path
-    else
-      if documentation.present?
-        documentation.destroy!
-      end
+      if @article.save!
+        redirect_to list_articles_path
+      else
+        if documentation.present?
+          documentation.destroy!
+        end
+        render 'new'
+      end  
+    rescue Exception => e
       render 'new'
-    end 
+    end
+     
   end
 
   def edit
   end
 
   def update
-    if params[:article][:image].present?
-      if @article.documentation_id?
-        documentation = Documentation.find(@article.documentation_id)
-        documentation.image = params[:article][:image]
-        documentation.save!
+    begin
+      if params[:article][:image].present?
+        if @article.documentation_id?
+          documentation = Documentation.find(@article.documentation_id)
+          documentation.image = params[:article][:image]
+          documentation.save!
+        else
+          documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
+            d.image = params[:article][:image]
+          end
+          raise "error" if documentation.errors.any?
+        end
+        
+        params[:article][:documentation_id] = documentation.id
+      end
+      params[:article][:content_preview] = create_article_preview(params[:article][:content])
+      params[:article][:user_id] = current_user.id
+      if @article.update_attributes(article_params)
+        redirect_to list_articles_path
       else
-        documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
-          d.image = params[:article][:image]
-        end  
-      end
-      
-      params[:article][:documentation_id] = documentation.id
-    end
-    params[:article][:content_preview] = create_article_preview(params[:article][:content])
-    params[:article][:user_id] = current_user.id
-    if @article.update_attributes(article_params)
-      redirect_to list_articles_path
-    else
-      if documentation.present?
-        documentation.destroy!
-      end
+        if documentation.present?
+          documentation.destroy!
+        end
+        render 'edit'
+      end  
+    rescue Exception => e
+      doc_error_key = documentation.errors.messages.keys.first
+      @article.errors.add(doc_error_key, documentation.errors.messages[doc_error_key].join(','))
       render 'edit'
     end
+    
   end
 
   def destroy

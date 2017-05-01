@@ -15,6 +15,8 @@ module Prokasih
 
     config.assets.paths << Rails.root.join('app','assets','fonts')
 
+    config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+
     # # Bower asset paths
     # root.join('vendor', 'assets', 'components').to_s.tap do |bower_path|
     #   config.sass.load_paths << bower_path

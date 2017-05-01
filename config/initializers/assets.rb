@@ -16,4 +16,3 @@ Rails.application.config.assets.precompile += %w( map.js )
 Rails.application.config.assets.precompile += %w( download_confirmation.js )
 Rails.application.config.assets.precompile += %w( login.scss )
 Rails.application.config.assets.precompile += %w( email.css )
-Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/

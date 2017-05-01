@@ -1,22 +1,22 @@
 /*font configuration*/
 @font-face {
   font-family: 'UniversCondensedMedium';
-  src: url('Univers-Condensed-Medium.eot');
-  src: url('Univers-Condensed-Medium.eot?#iefix') format('embedded-opentype'),
-    url('Univers-Condensed-Medium.woff') format('woff'),
-    url('Univers-Condensed-Medium.ttf') format('truetype'),
-    url('Univers-Condensed-Medium.svg#Univers-Condensed-Medium') format('svg');
+  src: font-url( asset-path('Univers-Condensed-Medium.eot') );
+  src: font-url( asset-path('Univers-Condensed-Medium.eot?#iefix') ) format('embedded-opentype'),
+    font-url( asset-path('Univers-Condensed-Medium.woff') ) format('woff'),
+    font-url( asset-path('Univers-Condensed-Medium.ttf') ) format('truetype'),
+    font-url( asset-path('Univers-Condensed-Medium.svg#Univers-Condensed-Medium') ) format('svg');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'HelveticaNeue';
-  src: url('HelveticaNeueRegular.eot');
-  src: url('HelveticaNeueRegular.eot?#iefix') format('embedded-opentype'),
-    url('HelveticaNeueRegular.woff') format('woff'),
-    url('HelveticaNeueRegular.ttf') format('truetype'),
-    url('HelveticaNeueRegular.svg#HelveticaNeueRegular') format('svg');
+  src: font-url( asset-path('HelveticaNeueRegular.eot') );
+  src: font-url( asset-path('HelveticaNeueRegular.eot?#iefix') ) format('embedded-opentype'),
+    font-url( asset-path('HelveticaNeueRegular.woff') ) format('woff'),
+    font-url( asset-path('HelveticaNeueRegular.ttf') ) format('truetype'),
+    font-url( asset-path('HelveticaNeueRegular.svg#HelveticaNeueRegular') ) format('svg');
   font-weight: 100;
   font-style: normal;
 }

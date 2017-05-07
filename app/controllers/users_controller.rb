@@ -62,12 +62,12 @@ class UsersController < ApplicationController
         # set as staff when role_id not appear
         @user.roles << accessible_roles.find_by(name: "Staff") if params[:user][:role_id].blank?
         
-        flash[:notice] = "Your account has been updated"
+        flash[:notice] = "Akun anda berhasil di update"
         format.json { render :json => @user.to_json, :status => 200 }
         format.xml  { head :ok }
         format.html { render :action => :edit }
       else
-        format.json { render :text => "Could not update user", :status => :unprocessable_entity } #placeholder
+        format.json { render :text => "Pembaharuan user gagal", :status => :unprocessable_entity } #placeholder
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
         format.html { render :action => :edit, :status => :unprocessable_entity }
       end
@@ -97,29 +97,38 @@ class UsersController < ApplicationController
   # POST /users.json                                      HTML AND AJAX
   #-----------------------------------------------------------------
   def create
-    @user = User.new(user_params)
-    if @user.save
-      # set as administrator when role_id appear
-      @user.roles << accessible_roles.find(params[:user][:role_id]) unless params[:user][:role_id].blank?
-      # set as staff when role_id not appear
-      @user.roles << accessible_roles.find_by(name: "Staff") if params[:user][:role_id].blank?
+    begin
+      @user = User.new(user_params)
+      if @user.save
+        # set as administrator when role_id appear
+        @user.roles << accessible_roles.find(params[:user][:role_id]) unless params[:user][:role_id].blank?
+        # set as staff when role_id not appear
+        @user.roles << accessible_roles.find_by(name: "Staff") if params[:user][:role_id].blank?
 
-      # send email to new user
-      job_params = {type: "user_registration", user: @user, password: user_params[:password]}
-      SendEmailJob.set(wait: 10.seconds).perform_later(job_params)
+        # send email to new user
+        job_params = {type: "user_registration", user: @user, password: user_params[:password]}
+        SendEmailJob.set(wait: 10.seconds).perform_later(job_params)
 
+        respond_to do |format|
+          format.json { render :json => @user.to_json, :status => 200 }
+          format.xml  { head :ok }
+          format.html { redirect_to :action => :index }
+        end
+      else
+        respond_to do |format|
+          format.json { render :text => "Pendaftaran user gagal", :status => :unprocessable_entity } # placeholder
+          format.xml  { head :ok }
+          format.html { render :action => :new, :status => :unprocessable_entity }
+        end
+      end  
+    rescue Exception => e
       respond_to do |format|
-        format.json { render :json => @user.to_json, :status => 200 }
-        format.xml  { head :ok }
-        format.html { redirect_to :action => :index }
-      end
-    else
-      respond_to do |format|
-        format.json { render :text => "Could not create user", :status => :unprocessable_entity } # placeholder
+        format.json { render :text => "Pendaftaran user gagal", :status => :unprocessable_entity } # placeholder
         format.xml  { head :ok }
         format.html { render :action => :new, :status => :unprocessable_entity }
       end
     end
+    
   end
 
   private

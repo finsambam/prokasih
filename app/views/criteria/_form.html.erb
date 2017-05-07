@@ -4,7 +4,7 @@
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#general" aria-controls="home" role="tab" data-toggle="tab">General</a></li>
       <% @parameter_categories.each do |category| %>
-        <li role="presentation"><a href=<%= '#'+category.name.downcase %> aria-controls="messages" role="tab" data-toggle="tab"><%= category.name%></a></li>
+        <li role="presentation"><a href=<%= '#'+category.name.downcase.gsub(/\s+/, "") %> aria-controls="messages" role="tab" data-toggle="tab"><%= category.name%></a></li>
       <% end %>
     </ul>
 
@@ -26,7 +26,7 @@
         </div>
       </div>
       <% @parameter_categories.each do |category| %>
-        <div id=<%= category.name.downcase %> role="tabpanel" class="tab-pane">
+        <div id=<%= category.name.downcase.gsub(/\s+/, "") %> role="tabpanel" class="tab-pane">
           <br />
           <% category.parameters.each do |param| %>
             <%= f.fields_for :criterium_parameters, @criterium.criterium_parameters.find_or_initialize_by(parameter_id: param.id) do |cp| %>

@@ -23,23 +23,33 @@ class AnalyticsController < ApplicationController
   end
 
   def create
-    @analytic = Analytic.new(analytic_params)
-    if @analytic.save!
-      redirect_to analytics_path
-    else
+    begin
+      @analytic = Analytic.new(analytic_params)
+      if @analytic.save!
+        redirect_to analytics_path
+      else
+        render 'new'
+      end  
+    rescue Exception => e
       render 'new'
-    end 
+    end
+     
   end
 
   def edit
   end
 
   def update
-    if @analytic.update_attributes(analytic_params)
-      redirect_to analytics_path
-    else
+    begin
+      if @analytic.update_attributes(analytic_params)
+        redirect_to analytics_path
+      else
+        render 'edit'
+      end  
+    rescue Exception => e
       render 'edit'
     end
+    
   end
 
   def destroy

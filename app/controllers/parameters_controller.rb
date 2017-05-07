@@ -12,38 +12,44 @@ class ParametersController < ApplicationController
   end
 
   def create
-    @parameter = Parameter.new(parameter_params)
-    
-    if params[:parameter_category_name].present?
-      category = ParameterCategory.find_or_create_by(name: params[:parameter_category_name])
-      @parameter.parameter_category = category
-    end
-
-    if @parameter.save!
-      redirect_to parameters_path
-    else
-      if category.present?
-        category.destroy!
+    begin
+      @parameter = Parameter.new(parameter_params)
+      if params[:parameter_category_name].present?
+        category = ParameterCategory.find_or_create_by(name: params[:parameter_category_name])
+        @parameter.parameter_category = category
       end
+      if @parameter.save!
+        redirect_to parameters_path
+      else
+        if category.present?
+          category.destroy!
+        end
+        render 'new'
+      end  
+    rescue Exception => e
       render 'new'
-    end 
+    end
   end
 
   def edit
   end
 
   def update
-    if params[:parameter_category_name].present?
-      category = ParameterCategory.find_or_create_by(name: params[:parameter_category_name])
-      params[:parameter][:parameter_category_id] = category.id
-    end
-
-    if @parameter.update_attributes(parameter_params)
-      redirect_to parameters_path
-    else
-      if category.present?
-        category.destroy!
+    begin
+      if params[:parameter_category_name].present?
+        category = ParameterCategory.find_or_create_by(name: params[:parameter_category_name])
+        params[:parameter][:parameter_category_id] = category.id
       end
+
+      if @parameter.update_attributes(parameter_params)
+        redirect_to parameters_path
+      else
+        if category.present?
+          category.destroy!
+        end
+        render 'edit'
+      end  
+    rescue Exception => e
       render 'edit'
     end
   end

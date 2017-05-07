@@ -12,23 +12,33 @@ class CriteriaController < ApplicationController
   end
 
   def create
-    @criterium = Criterium.new(criterium_params)
-    if @criterium.save!
-      redirect_to criteria_path
-    else
+    begin
+      @criterium = Criterium.new(criterium_params)
+      if @criterium.save!
+        redirect_to criteria_path
+      else
+        render 'new'
+      end  
+    rescue Exception => e
       render 'new'
-    end 
+    end
+     
   end
 
   def edit
   end
 
   def update
-    if @criterium.update_attributes(criterium_params)
-      redirect_to criteria_path
-    else
+    begin
+      if @criterium.update_attributes(criterium_params)
+        redirect_to criteria_path
+      else
+        render 'edit'
+      end  
+    rescue Exception => e
       render 'edit'
     end
+    
   end
 
   def destroy

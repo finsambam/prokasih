@@ -1,9 +1,11 @@
 class Location < ApplicationRecord
-  validates :river_name, presence: true
-  validates :spot_name, presence: true
-  validates :address, presence: true, if: :coordinate_empty?
-  validates :longitude, presence: true, if: "address.nil?"
-  validates :latitude, presence: true, if: "address.nil?"
+  # validates :river_name, presence: true
+  # validates :spot_name, presence: true
+  # validates :address, presence: true, if: :coordinate_empty?
+  # validates :longitude, presence: true, if: "address.nil?"
+  # validates :latitude, presence: true, if: "address.nil?"
+
+  validate :must_be_presents
 
   has_one :analytic
 
@@ -32,6 +34,17 @@ class Location < ApplicationRecord
   private
 
   def coordinate_empty?
-    return latitude.nil? && longitude.nil?
+    return latitude.blank? && longitude.blank?
+  end
+
+  def must_be_presents
+    errors[:base] << "Nama sungai tidak boleh kosong" if river_name.blank?
+    errors[:base] << "Titik lokasi boleh kosong" if spot_name.blank?
+    if address.blank? && !coordinate_empty?
+      errors[:base] << "Longitude lokasi boleh kosong" if longitude.blank?
+      errors[:base] << "Latitude lokasi boleh kosong" if latitude.blank?  
+    elsif coordinate_empty?
+      errors[:base] << "Salah satu dari alamat atau koordinat lokasi boleh kosong" if address.blank?  
+    end
   end
 end

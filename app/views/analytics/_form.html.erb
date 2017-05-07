@@ -4,7 +4,7 @@
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active"><a href="#general" aria-controls="home" role="tab" data-toggle="tab">General</a></li>
       <% @parameter_categories.each do |category| %>
-        <li role="presentation"><a href=<%= '#'+category.name.downcase %> aria-controls="messages" role="tab" data-toggle="tab"><%= category.name%></a></li>
+        <li role="presentation"><a href=<%= '#'+category.name.downcase.gsub(/\s+/, "") %> aria-controls="messages" role="tab" data-toggle="tab"><%= category.name%></a></li>
       <% end %>
     </ul>
 
@@ -29,7 +29,7 @@
             <%= f.select :location_id, {}, {include_blank: 'Pilih titik lokasi'}, {class: "form-control", disabled: "disabled"} %>
           </div>
         </div>
-        <div class="form-group period">
+        <div class="form-group required">
           <%= f.label :period, "Periode", class: "col-sm-3 control-label" %>
           <div class="col-sm-8">
             <input type="text" class="form-control datepicker" id="period-datepicker">
@@ -50,14 +50,15 @@
         </div>
       </div>
       <% @parameter_categories.each do |category| %>
-        <div id=<%= category.name.downcase %> role="tabpanel" class="tab-pane">
+        <div id=<%= category.name.downcase.gsub(/\s+/, "") %> role="tabpanel" class="tab-pane">
           <br />
           <% category.parameters.each do |param| %>
             <%= f.fields_for :analytic_parameters, @analytic.analytic_parameters.find_or_initialize_by(parameter_id: param.id) do |cp| %>
               <div class="form-group">
                 <%= cp.label :value, param.name, class: "col-sm-3 control-label" %>
-                <div class="col-sm-8">
-                  <%= cp.text_field :value, class: "form-control" %>
+                <div class="col-sm-8 input-group">
+                  <%= cp.text_field :value, class: "form-control", "aria-describedby" => "unit" %>
+                  <span class="input-group-addon" id="unit"><%= param.unit %></span>
                 </div>
                 <%= cp.hidden_field :parameter_id, {:value => param.id} %>
               </div>

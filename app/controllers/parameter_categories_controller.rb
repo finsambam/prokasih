@@ -15,23 +15,33 @@ class ParameterCategoriesController < ApplicationController
   end
 
   def create
-    @parameter_category = ParameterCategory.new(parameter_category_params)
-    if @parameter_category.save!
-      redirect_to parameter_categories_path
-    else
+    begin
+      @parameter_category = ParameterCategory.new(parameter_category_params)
+      if @parameter_category.save!
+        redirect_to parameter_categories_path
+      else
+        render 'new'
+      end  
+    rescue Exception => e
       render 'new'
-    end 
+    end
+     
   end
 
   def edit
   end
 
   def update
-    if @parameter_category.update_attributes(parameter_category_params)
-      redirect_to parameter_categories_path
-    else
+    begin
+      if @parameter_category.update_attributes(parameter_category_params)
+        redirect_to parameter_categories_path
+      else
+        render 'edit'
+      end  
+    rescue Exception => e
       render 'edit'
     end
+    
   end
 
   def destroy

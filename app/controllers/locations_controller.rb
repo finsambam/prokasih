@@ -12,12 +12,17 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = Location.new(location_params)
-    @location[:code] = get_location_code(@location)
-    if @location.save
-      flash[:success] = "Tambah lokasi berhasil"
-      redirect_to locations_path
-    else
+    begin
+      @location = Location.new(location_params)
+      @location[:code] = get_location_code(@location)
+      if @location.save
+        flash[:success] = "Tambah lokasi berhasil"
+        redirect_to locations_path
+      else
+        @rivers = Location::RIVERS
+        render 'new'
+      end  
+    rescue Exception => e
       @rivers = Location::RIVERS
       render 'new'
     end
@@ -28,10 +33,14 @@ class LocationsController < ApplicationController
   end
 
   def update
-    if @location.update_attributes(location_params)
-      redirect_to locations_path
-    else
-      render 'edit'
+    begin
+      if @location.update_attributes(location_params)
+        redirect_to locations_path
+      else
+        render 'edit'
+      end  
+    rescue Exception => e
+      render 'edit'     
     end
   end
 

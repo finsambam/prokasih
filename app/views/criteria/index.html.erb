@@ -31,6 +31,7 @@
   $(document).ready(function() {
     // init data table
     $('#criteria-table').DataTable({
+      oLanguage: { sEmptyTable: "Data tidak ditemukan" },
       dom: "<'row'<'col-sm-6'B><'col-sm-6'f>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>",
       buttons: [
         {

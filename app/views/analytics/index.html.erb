@@ -33,6 +33,7 @@
   $(document).ready(function() {
     // init data table
     $('#analytic-table').DataTable({
+      oLanguage: { sEmptyTable: "Data tidak ditemukan" },
       dom: "<'row'<'col-sm-12'B>><'row'<'col-sm-12't>><'row'<'col-sm-12'p>>",
       buttons: [
         {

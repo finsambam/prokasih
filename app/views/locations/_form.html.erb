@@ -1,24 +1,24 @@
 <div class="col-sm-6">
   <%= form_for(@location, html:{class: 'form-horizontal'}) do |f| %>
-    <div class="form-group">
+    <div class="form-group required">
       <%= f.label :river_name, "Nama Sungai", class: "col-sm-3 control-label" %>
       <div class="col-sm-8">
         <%= f.select :river_name, @rivers, {}, {class: "form-control"} %>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group required">
       <%= f.label :spot_name, "Titik Lokasi", class: "col-sm-3 control-label" %>
       <div class="col-sm-8">
         <%= f.text_field :spot_name, class: "form-control" %>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group required">
       <%= f.label :address, "Alamat", class: "col-sm-3 control-label" %>
       <div class="col-sm-8">
         <%= f.text_area :address, placeholder: "Alamat", id:"address-field", class: "form-control" %>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group required">
       <label class="col-sm-3 control-label">Koordinat</label>
     </div>
     <div class="form-group">
@@ -36,7 +36,6 @@
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-8">
         <%= link_to "<i class='fa fa-reply'></i> Batal".html_safe, { controller: "locations", action: "index" }, class: "btn btn-default" %>
-        <%#= f.submit "Simpan", class: "btn btn-success" %>
         <%= button_tag(type: "submit", class: "btn btn-success") do %>
           <i class="fa fa-floppy-o"></i> Simpan
         <% end %>

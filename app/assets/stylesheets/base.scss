@@ -406,3 +406,13 @@ a:hover{
     width: 1170px;
   }
 }
+
+.form-group.required .control-label:after { 
+   content:"*";
+   color:red;
+}
+
+.no-data{
+  text-align: center;
+  background-color: #f5f5f5;
+}

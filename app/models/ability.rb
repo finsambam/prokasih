@@ -7,6 +7,18 @@ class Ability
       user ||= User.new # guest user (not logged in)
       if user.role? :administrator
         can :manage, :all
+      elsif user.role? :staff
+        can :manage, Analytic
+        can :manage, AnalyticParameter
+        can :manage, Article
+        can :manage, Comment
+        can :manage, Criterium
+        can :manage, CriteriumParameter
+        can :manage, Documentation
+        can :read, DownloadHistory
+        can :manage, Location
+        can :read, Parameter
+        can :read, ParameterCategory
       end
     #
     # The first argument to `can` is the action you are giving the user 

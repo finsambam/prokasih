@@ -45,7 +45,12 @@
               <% selected_analytic_params = analytic.analytic_parameters.where(parameter_id: param.id) %>
               <% if selected_analytic_params.any? %>
                 <% selected_analytic_params.each do |analytic_param| %>
-                  <td class=<%= analytic_value_class(analytic_param.value, param.id) %>><%= analytic_param.value %></td>
+                  <td class=<%= analytic_value_class(analytic_param.value, param.id) %>>
+                    <% if analytic_param.special_character.present? && analytic_param.special_character != "=" %>
+                      <%= analytic_param.special_character %>
+                    <%end%>
+                    <%= analytic_param.value %>
+                  </td>
                 <% end %>
               <% else %>
                 <td class=<%= analytic_value_class(0, param.id) %>>0</td>
@@ -55,7 +60,11 @@
               <% selected_criterium_params = criterium.criterium_parameters.where(parameter_id: param.id) %>
               <% if selected_criterium_params.any? %>
                 <% selected_criterium_params.each do |criterium_param| %>
-                  <td><%= criterium_param.value %></td>
+                  <% if criterium_param.value2.present? %>
+                    <td><%= criterium_param.value + "-" + criterium_param.value2 %></td>
+                  <% else %>
+                    <td><%= criterium_param.value %></td>
+                  <% end %>
                 <% end %>
               <% else %>
                 <td>0</td>

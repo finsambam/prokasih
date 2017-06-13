@@ -38,7 +38,6 @@ class CriteriaController < ApplicationController
     rescue Exception => e
       render 'edit'
     end
-    
   end
 
   def destroy
@@ -50,7 +49,7 @@ class CriteriaController < ApplicationController
 
   def criterium_params
     params.require(:criterium).permit(:name,
-      :criterium_parameters_attributes => [:id, :parameter_id, :value]
+      :criterium_parameters_attributes => [:id, :parameter_id, :value, :special_character, :value2]
     )
   end
 
@@ -60,5 +59,6 @@ class CriteriaController < ApplicationController
 
   def init_parameters
     @parameter_categories = ParameterCategory.all
+    @parameter_special_characters = Parameter::SPECIAL_CHARACTERS
   end
 end

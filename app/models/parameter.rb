@@ -12,6 +12,10 @@ class Parameter < ApplicationRecord
   has_many :criterium_parameters
   has_many :criteria, through: :criterium_parameters
 
+  ANALYTIC_TYPES = ["normal", "dengan kondisi"].freeze
+  CRITERIUM_TYPES = ["normal", "rentang nilai"].freeze
+  SPECIAL_CHARACTERS = ["=","<", ">", "<=",">="].freeze
+
   def self.for_select
     ParameterCategory.all.map do |category|
       [category.name, category.parameters.map { |p| [p.name, p.id] }]

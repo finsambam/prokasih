@@ -56,9 +56,19 @@
             <%= f.fields_for :analytic_parameters, @analytic.analytic_parameters.find_or_initialize_by(parameter_id: param.id) do |cp| %>
               <div class="form-group">
                 <%= cp.label :value, param.name, class: "col-sm-3 control-label" %>
-                <div class="col-sm-8 input-group">
-                  <%= cp.text_field :value, class: "form-control", "aria-describedby" => "unit" %>
-                  <span class="input-group-addon" id="unit"><%= param.unit %></span>
+                <div class="col-sm-8">
+                  <%if param.analytic_type == 'dengan kondisi'%>
+                    <%= cp.select :special_character, @parameter_special_characters, {}, {class: "condition col-sm-3 form-control initial-size"} %>
+                    <div class="input-group">
+                      <%= cp.number_field :value, class: "condition col-sm-7 form-control", "aria-describedby" => "unit" %>
+                      <span class="input-group-addon" id="unit"><%= param.unit %></span>
+                    </div>
+                  <% else %>
+                    <div class="input-group">
+                      <%= cp.text_field :value, class: "form-control", "aria-describedby" => "unit" %>
+                      <span class="input-group-addon" id="unit"><%= param.unit %></span>
+                    </div>
+                  <%end%>
                 </div>
                 <%= cp.hidden_field :parameter_id, {:value => param.id} %>
               </div>

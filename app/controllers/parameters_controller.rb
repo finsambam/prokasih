@@ -1,6 +1,7 @@
 class ParametersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_parameter_categories, only: [:new, :create, :edit, :update]
+  before_filter :define_types, only: [:new, :create, :edit, :update]
   before_filter :find_parameter, only: [:edit, :update, :destroy]
   
   def index
@@ -32,6 +33,7 @@ class ParametersController < ApplicationController
   end
 
   def edit
+    
   end
 
   def update
@@ -62,7 +64,7 @@ class ParametersController < ApplicationController
   private
 
   def parameter_params
-    params.require(:parameter).permit(:name, :unit, :parameter_category_id)
+    params.require(:parameter).permit(:name, :unit, :parameter_category_id, :criterium_type, :analytic_type)
   end
 
   def get_parameter_categories
@@ -71,6 +73,11 @@ class ParametersController < ApplicationController
 
   def find_parameter
     @parameter = Parameter.find(params[:id])
+  end
+
+  def define_types
+    @analytic_types = Parameter::ANALYTIC_TYPES
+    @criterium_types = Parameter::CRITERIUM_TYPES
   end
 
 end

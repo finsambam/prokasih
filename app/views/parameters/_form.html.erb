@@ -35,6 +35,18 @@
     </div>
   </div>
   <div class="form-group">
+    <%= f.label :criterium_type, "Tipe data kriteria", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.select :criterium_type, @criterium_types, {}, {class: "form-control", "data-toggle" => "tooltip", "data-placement" => "right", "title" => "Tipe data kriteria digunakan untuk menentukan data kriteria yang diperbolehkan untuk di input. Terdapat 3 tipe data, normal, rentang nilai dan dengan kondisi"} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :analytic_type, "Tipe data analisis", class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.select :analytic_type, @analytic_types, {}, {class: "form-control", "data-toggle" => "tooltip", "data-placement" => "right", "title" => "Tipe data analisis digunakan untuk menentukan data kriteria yang diperbolehkan untuk di input. Terdapat 3 tipe data, normal, rentang nilai dan dengan kondisi"} %>
+    </div>
+  </div>
+  <div class="form-group">
     <div class="col-sm-offset-3 col-sm-8">
       <%= link_to "<i class='fa fa-reply'></i> Batal".html_safe, { controller: "parameters", action: "index" }, class: "btn btn-default" %>
       <%= button_tag(type: "submit", class: "btn btn-success") do %>

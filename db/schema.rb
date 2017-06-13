@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419195313) do
+ActiveRecord::Schema.define(version: 20170525183931) do
 
   create_table "analytic_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "analytic_id"
     t.integer  "parameter_id"
     t.string   "value"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "special_character"
     t.index ["analytic_id"], name: "index_analytic_parameters_on_analytic_id", using: :btree
     t.index ["parameter_id"], name: "index_analytic_parameters_on_parameter_id", using: :btree
   end
@@ -59,8 +60,10 @@ ActiveRecord::Schema.define(version: 20170419195313) do
     t.integer  "criterium_id"
     t.integer  "parameter_id"
     t.string   "value"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "special_character"
+    t.string   "value2"
     t.index ["criterium_id"], name: "index_criterium_parameters_on_criterium_id", using: :btree
     t.index ["parameter_id"], name: "index_criterium_parameters_on_parameter_id", using: :btree
   end
@@ -119,6 +122,8 @@ ActiveRecord::Schema.define(version: 20170419195313) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "unit"
+    t.string   "analytic_type"
+    t.string   "criterium_type"
   end
 
   create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

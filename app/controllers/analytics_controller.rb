@@ -49,7 +49,6 @@ class AnalyticsController < ApplicationController
     rescue Exception => e
       render 'edit'
     end
-    
   end
 
   def destroy
@@ -61,7 +60,7 @@ class AnalyticsController < ApplicationController
 
   def analytic_params
     params.require(:analytic).permit(:period, :location_id, :criterium_id,
-      :analytic_parameters_attributes => [:id, :parameter_id, :value]
+      :analytic_parameters_attributes => [:id, :parameter_id, :value, :special_character]
     )
   end
 
@@ -72,6 +71,7 @@ class AnalyticsController < ApplicationController
   def init_data_option
     @parameter_categories = ParameterCategory.all
     @rivers = Location::RIVERS
+    @parameter_special_characters = Parameter::SPECIAL_CHARACTERS
     @locations = Location.all
     @criteria = Criterium.all
   end

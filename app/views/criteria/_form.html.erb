@@ -1,4 +1,4 @@
-<%= form_for(@criterium, html:{class: 'form-horizontal'}) do |f| %>
+<%= form_for(@criterium, html:{class: 'form-horizontal',:novalidate => 'novalidate'}) do |f| %>
   <div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -30,13 +30,32 @@
           <br />
           <% category.parameters.each do |param| %>
             <%= f.fields_for :criterium_parameters, @criterium.criterium_parameters.find_or_initialize_by(parameter_id: param.id) do |cp| %>
-              <div class="form-group">
-                <%= cp.label :value, param.name, class: "col-sm-3 control-label" %>
-                <div class="col-sm-8">
-                  <%= cp.text_field :value, class: "form-control" %>
+              <% type = param.criterium_type ? param.criterium_type : param.analytic_type %>
+                <div class="form-group">
+                  <%= cp.label :value, param.name, class: "col-sm-3 control-label" %>
+                  <div class="col-sm-8">
+                    <% if param.criterium_type == 'rentang nilai' %>
+                      <%= cp.number_field :value, class: "col-sm-6 form-control initial-size" %>
+                      <label class='col-sm-1 control-label'>s/d</label>
+                      <div class="input-group">
+                        <%= cp.number_field :value2, class: "col-sm-4 form-control", "aria-describedby" => "unit" %>
+                        <span class="input-group-addon" id="unit"><%= param.unit %></span>
+                      </div>
+                    <%elsif param.criterium_type == 'dengan kondisi'%>
+                      <%= cp.select :special_character, @parameter_special_characters, {}, {class: "condition col-sm-3 form-control initial-size"} %>
+                      <div class="input-group">
+                        <%= cp.number_field :value, class: "condition col-sm-7 form-control", "aria-describedby" => "unit" %>
+                        <span class="input-group-addon" id="unit"><%= param.unit %></span>
+                      </div>
+                    <% else %>
+                      <div class="input-group">
+                        <%= cp.number_field :value, class: "form-control", "aria-describedby" => "unit" %>
+                        <span class="input-group-addon" id="unit"><%= param.unit %></span>
+                      </div>
+                    <%end%>
+                  </div>
+                  <%= cp.hidden_field :parameter_id, {:value => param.id} %>
                 </div>
-                <%= cp.hidden_field :parameter_id, {:value => param.id} %>
-              </div>
             <% end %>
           <% end %>
           <div class="form-group">

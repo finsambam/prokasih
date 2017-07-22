@@ -13,20 +13,9 @@
       <div role="tabpanel" class="tab-pane active" id="general">
         <br />
         <div class="form-group required">
-          <%= f.label :rever_name, "Nama Sungai", class: "col-sm-3 control-label" %>
+          <%= f.label :location_id, "Kode Lokasi", class: "col-sm-3 control-label" %>
           <div class="col-sm-8">
-            <select id="river-name" class="form-control">
-              <option>Pilih nama sungai</option>
-              <% @rivers.each do |river| %>
-                <option value='<%= river%>' <% if @analytic.id.present? && @analytic.location.river_name == river %> selected='selected' <% end %>><%= river%></option>
-              <% end %>
-            </select>
-          </div>
-        </div>
-        <div class="form-group required">
-          <%= f.label :location_id, "Titik Lokasi", class: "col-sm-3 control-label" %>
-          <div class="col-sm-8">
-            <%= f.select :location_id, {}, {include_blank: 'Pilih titik lokasi'}, {class: "form-control", disabled: "disabled"} %>
+            <%= f.collection_select :location_id, @locations, :id, :code, {include_blank: 'Pilih titik lokasi'}, {class: "form-control location-code"} %>
           </div>
         </div>
         <div class="form-group required">
@@ -95,6 +84,10 @@
 <script type="text/javascript">
   $( document ).on('turbolinks:load', function() {
 
+    $('.location-code').select2({
+        theme: "bootstrap"
+    });
+
     $('.btnNext').click(function(){
       $('.nav-tabs > .active').next('li').find('a').trigger('click');
     });
@@ -102,9 +95,6 @@
     $('.btnPrevious').click(function(){
       $('.nav-tabs > .active').prev('li').find('a').trigger('click');
     });
-
-    // get location when user select river name
-    $('#river-name').change(getLocationByRiverName);
 
     // initialize datepicker
     var dateElement = $('.datepicker').datepicker({
@@ -126,38 +116,8 @@
 
   var initLocation = function(){
     <% if @analytic.location.present?%>
-      $('#river-name').val('<%= @analytic.location.river_name%>');
-      $( "#river-name" ).trigger( "change" );
       $('.datepicker').datepicker('update', '<%= @analytic.period%>');
     <% end %>
   }
 
-  var getLocationByRiverName = function(){
-    var isLocationSelected = <%= @analytic.location.present? %> ;
-
-    $.ajax({
-      url: '<%= get_by_river_locations_path %>',
-      type: "GET",
-      data: {riverName: $('#river-name option:selected').text()},
-      beforeSend: (function(){
-        // TODO: add loading layer
-        $('#analytic_location_id').prop('disabled', 'disabled');
-        $('#analytic_location_id').html('');
-      }),
-      success: (function(response){
-        var x;
-        $('#analytic_location_id').append('<option value="">Pilih titik lokasi</option>');
-        for (x in response) {
-          $('#analytic_location_id').append('<option value="'+response[x].id+'">'+response[x].spot_name+'</option>');
-        }
-
-        if (isLocationSelected) {
-          $('#analytic_location_id').val('<%= @analytic.location_id %>');
-        }
-      }),
-      complete: (function(){
-        $('#analytic_location_id').removeAttr('disabled');
-      })
-    })
-  }
 </script>

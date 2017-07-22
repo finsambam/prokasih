@@ -1,9 +1,4 @@
 class Location < ApplicationRecord
-  # validates :river_name, presence: true
-  # validates :spot_name, presence: true
-  # validates :address, presence: true, if: :coordinate_empty?
-  # validates :longitude, presence: true, if: "address.nil?"
-  # validates :latitude, presence: true, if: "address.nil?"
 
   validate :must_be_presents
 
@@ -20,15 +15,36 @@ class Location < ApplicationRecord
 
   scope :by_river_name, ->(name) { where(:river_name => name) }
   
-  def get_code_prefix
+  # def get_code_prefix
+  #   case self[:river_name]
+  #   when "Sungai Gung Lama"
+  #     code_pref = "GL"
+  #   when "Sungai Sibelis"
+  #     code_pref = "SB"
+  #   when "Sungai Kemiri"
+  #     code_pref = "KM"
+  #   end
+  # end
+
+  def generate_code
+    code_pref = "";
     case self[:river_name]
     when "Sungai Gung Lama"
-      code_pref = "GL"
+      code_pref = "GL-"
     when "Sungai Sibelis"
-      code_pref = "SB"
+      code_pref = "SB-"
     when "Sungai Kemiri"
-      code_pref = "KM"
+      code_pref = "KM-"
     end
+    
+    last_location = Location.where(:river_name => self[:river_name]).last
+    if last_location.nil?
+      last_code = 0
+    else
+      last_code = last_location[:code].remove(code_pref).to_i     
+    end 
+    
+    self[:code] = code_pref + (last_code + 1).to_s
   end
 
   private

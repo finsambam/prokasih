@@ -45,7 +45,7 @@ GEM
     bindex (0.5.0)
     builder (3.2.3)
     byebug (9.0.6)
-    cancan (1.6.10)
+    cancancan (1.17.0)
     carrierwave (1.0.0)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -218,7 +218,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  cancan
+  cancancan (~> 1.10)
   carrierwave
   coffee-rails (~> 4.2)
   delayed_job_active_record

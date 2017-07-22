@@ -40,7 +40,7 @@ gem 'geocoder'
 
 # Use devise and cancan for authentication
 gem 'devise'
-gem 'cancan'
+gem 'cancancan', '~> 1.10'
 
 # Use wicked_pdf to generate PDF
 gem 'wicked_pdf'

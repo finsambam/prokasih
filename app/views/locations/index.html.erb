@@ -21,11 +21,9 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <% if(can?(:edit, Location)) %>
-              <li>
-                <a href="#" class="edit-location" data-id= <%= l.id %> ><i class='fa fa-pencil-square-o'></i> Ubah </a>
-              </li>
-            <% end %>
+            <li>
+              <%= link_to_if(can?(:edit, Location), "<i class='fa fa-pencil-square-o'></i> Ubah".html_safe, edit_location_path(l.id), :'data-turbolinks'=>'false') {} %>
+            </li>
             <li role="separator" class="divider"></li>
             <li><%= link_to_if(can?(:delete, l), "<i class='fa fa-times'></i> Hapus".html_safe, l, :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete) {} %></li>
           </ul>
@@ -52,7 +50,8 @@
         }
       ]
     });
-    $('.edit-location').click(function(){
+    $('.edit-location').on("click", function(ev){
+      ev.preventDefault();
       var id = this.getAttribute("data-id");
       window.location.href = '/locations/' + id + '/edit';
     });

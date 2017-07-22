@@ -14,7 +14,8 @@ class LocationsController < ApplicationController
   def create
     begin
       @location = Location.new(location_params)
-      @location[:code] = get_location_code(@location)
+      @location.generate_code
+      # @location[:code] = get_location_code(@location)
       if @location.save
         flash[:success] = "Tambah lokasi berhasil"
         redirect_to locations_path

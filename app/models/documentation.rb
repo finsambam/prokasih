@@ -1,6 +1,4 @@
 class Documentation < ApplicationRecord
-  # validates :title, presence: true
-  # validates :image, presence: true
 
   has_one :article
   mount_uploader :image, ImageUploader
@@ -8,6 +6,8 @@ class Documentation < ApplicationRecord
 
   validate :must_be_presents
   validate :file_size
+
+  scope :not_article, -> {where(:is_article => false)}
 
   def file_size
     if image.file.size.to_f/(1000*1000) > 1

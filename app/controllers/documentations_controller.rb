@@ -3,7 +3,7 @@ class DocumentationsController < ApplicationController
   before_filter :find_documentation, only: [:edit, :update, :destroy, :show]
   
   def index
-    @documentations = Documentation.paginate(:page => params[:page]).order('created_at DESC')    
+    @documentations = Documentation.not_article.paginate(:page => params[:page]).order('created_at DESC')    
   end
 
   def show
@@ -15,7 +15,7 @@ class DocumentationsController < ApplicationController
   # page for administrator
   # ==========================================================
   def list
-    @documentations = Documentation.order('created_at DESC')
+    @documentations = Documentation.not_article.order('created_at DESC')
   end
 
   def new
@@ -25,6 +25,7 @@ class DocumentationsController < ApplicationController
   def create
     begin
       @documentation = Documentation.new(documentation_params)
+      @documentation.is_article = false
       if @documentation.save!
         redirect_to list_documentations_path
       else
@@ -40,6 +41,7 @@ class DocumentationsController < ApplicationController
 
   def update
     begin
+      @documentation.is_article = false
       if @documentation.update_attributes(documentation_params)
         redirect_to list_documentations_path
       else
@@ -60,7 +62,7 @@ class DocumentationsController < ApplicationController
   private
 
   def documentation_params
-    params.require(:documentation).permit(:title, :description, :image)
+    params.require(:documentation).permit(:title, :description, :image, :is_article)
   end
 
   def find_documentation

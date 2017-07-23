@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525183931) do
+ActiveRecord::Schema.define(version: 20170723154142) do
 
   create_table "analytic_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "analytic_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170525183931) do
     t.string   "image"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "is_article"
   end
 
   create_table "download_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

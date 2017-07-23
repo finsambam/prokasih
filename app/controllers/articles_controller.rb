@@ -26,6 +26,7 @@ class ArticlesController < ApplicationController
       if params[:article][:image].present?
         documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
           d.image = params[:article][:image]
+          d.is_article = true
         end
         if documentation.errors.any?
           @article.errors.add(:documentation, "Anda tidak dapat meng-upload foto lebih dari 1MB")
@@ -60,10 +61,12 @@ class ArticlesController < ApplicationController
         if @article.documentation_id?
           documentation = Documentation.find(@article.documentation_id)
           documentation.image = params[:article][:image]
+          documentation.is_article = true
           documentation.save!
         else
           documentation = Documentation.find_or_create_by(title: params[:article][:title]) do |d|
             d.image = params[:article][:image]
+            d.is_article = true
           end
           raise "error" if documentation.errors.any?
         end

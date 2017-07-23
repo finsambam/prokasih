@@ -27,7 +27,11 @@
       </td>
       <td><%= "#{d.description}" %></td>
       <td><%= "#{d.created_at.strftime('%d-%m-%Y')}" %></td>
-      <td><%= image_tag d.image_url(:thumb) if d.image? %></td>
+      <td style="text-align:center;">
+        <span class="thumbnail-list">
+          <%= image_tag d.image_url(:thumb) if d.image? %>
+        </span>
+      </td>
     </tr>
   <% end %>
 </table>

@@ -6,7 +6,7 @@ class Article < ApplicationRecord
 	belongs_to :documentation
 	belongs_to :user
 
-	self.per_page = 2
+	self.per_page = 10
 
 	def must_be_presents
     errors[:base] << "Judul tidak boleh kosong" if title.blank?

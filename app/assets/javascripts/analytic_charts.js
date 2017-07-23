@@ -112,15 +112,10 @@ var generateChart = function(response){
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: choosedColor,
-        pointBackgroundColor: "#fff",
-        pointBorderWidth: 1,
+        pointStyle:'circle',
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: choosedColor,
-        pointHoverBorderColor: choosedColor,
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
+        pointRadius: 3,
+        pointHitRadius: 5,
         data: response.data[i].values,
         spanGaps: false,
       };
@@ -140,36 +135,42 @@ var generateChart = function(response){
     },
     options: {
       responsive: true,
-        title:{
-          display:true,
-          text:chartTitle,
-          fullWidth:true,
-          fontSize:20
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false,
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true
-        },
-        scales: {
-          xAxes: [{
+      title:{
+        display:true,
+        text:chartTitle,
+        fullWidth:true,
+        fontSize:20
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+      },
+      legend: {
+          position: 'top',
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
             display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Lokasi'
-            }
-          }],
-          yAxes: [{
+            labelString: 'Lokasi'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
             display: true,
-            scaleLabel: {
-              display: true,
-              labelString: unit
-            }
-          }]
-        }
+            labelString: unit
+          },
+          ticks:{
+            min: 0
+          }
+        }]
+      }
     }
   });
 

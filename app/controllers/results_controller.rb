@@ -29,7 +29,7 @@ class ResultsController < ApplicationController
     parameter = Parameter.find(params["parameter"])
     label_chart = "Grafik #{parameter.name} #{params['river']} Tahun #{start_date.strftime("%Y")}"
     label_chart = label_chart + "-#{end_date.strftime("%Y")}" if params["end"] != params["start"]
-    locations = Location.by_river_name(params["river"]).sort_by{|l| l.id}.map { |l| l.spot_name }
+    locations = Location.by_river_name(params["river"]).sort_by{|l| l.id}.map { |l| l.code }
     data = AnalyticParameter.chart_data(params["river"], start_date, end_date, params["parameter"])
     criterium_data = CriteriumParameter.chart_data(params["parameter"], params["criterium"], locations.length)
     data << criterium_data

@@ -4,7 +4,7 @@ class Documentation < ApplicationRecord
 
   has_one :article
   mount_uploader :image, ImageUploader
-  self.per_page = 2
+  self.per_page = 10
 
   validate :must_be_presents
   validate :file_size

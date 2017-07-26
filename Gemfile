@@ -49,6 +49,7 @@ gem 'wkhtmltopdf-binary'
 # Use carrierwave for file upload
 gem "rmagick"
 gem "carrierwave"
+gem 'fancybox2-rails'
 
 gem "gon"
 

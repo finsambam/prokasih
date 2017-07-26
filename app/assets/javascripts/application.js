@@ -22,3 +22,4 @@
 //= require bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all
 //= require bootstrap-datepicker
 //= require select2
+//= require fancybox

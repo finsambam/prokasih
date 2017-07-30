@@ -62,7 +62,7 @@ class UsersController < ApplicationController
         # set as staff when role_id not appear
         @user.roles << accessible_roles.find_by(name: "Staff") if params[:user][:role_id].blank?
         
-        flash[:notice] = "Akun anda berhasil di update"
+        flash[:success] = "Akun anda berhasil di update"
         format.json { render :json => @user.to_json, :status => 200 }
         format.xml  { head :ok }
         format.html { render :action => :edit }

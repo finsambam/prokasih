@@ -435,6 +435,15 @@ a:hover{
   width: initial !important;
 }
 
-.highlight{
-  background-color: #5cb85c !important;
+.comment{
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: #ffffff !important;
 }
+
+.new-comment{
+  background-color: #dff0d8 !important;
+}
+

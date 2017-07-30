@@ -1,3 +1,4 @@
+
 <div class="header-content">
   <h2 class="page-header">Diskusi</h2>
 </div>
@@ -6,7 +7,7 @@
     <div class="col-md-12">
       <ul id="comments" class="comments">
         <% @comments.each do |comment| %>
-          <%= render :partial => 'comment', :locals => {:comment => comment} %>
+          <%= render :partial => 'comment', :locals => {:comment => comment, :is_new => false} %>
         <% end %>
       </ul>
     </div>
@@ -59,5 +60,9 @@
       $("#parent_id").val("");
       $("#alert-reply").addClass("hide");
     })
+
+    $( document ).on("mouseover", ".new-comment", function(ev, el){
+      $(this).removeClass('new-comment');
+    });
   });
 </script>

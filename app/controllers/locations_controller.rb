@@ -36,6 +36,7 @@ class LocationsController < ApplicationController
   def update
     begin
       if @location.update_attributes(location_params)
+        flash[:success] = "Edit lokasi berhasil"
         redirect_to locations_path
       else
         render 'edit'

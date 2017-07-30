@@ -1,6 +1,6 @@
 <% if (@comments.any?)%>
   <% @comments.each do |comment| %>
-    var item = $("<%= escape_javascript render(:partial => 'comment', :locals => { :comment => comment }) %>").hide().fadeIn(1000);
+    var item = $("<%= escape_javascript render(:partial => 'comment', :locals => { :comment => comment, :is_new => false }) %>").hide().fadeIn(1000);
     $('#comments').append(item);
   <% end %>
 <% end %>

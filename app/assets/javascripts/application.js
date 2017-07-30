@@ -23,3 +23,4 @@
 //= require bootstrap-datepicker
 //= require select2
 //= require fancybox
+//= require alert

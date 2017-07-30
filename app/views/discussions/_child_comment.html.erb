@@ -1,4 +1,4 @@
-<li class="child-comment">
+<li class="child-comment <%= is_new ? 'new-comment' : '' %>">
   <div class="clearfix">
     <h4 class="pull-left"><%= child.name%> <small><i class="fa fa-share"></i> <%= comment.name%> <i class="fa fa-calendar-o"></i> <%= child.created_at.strftime('%d-%m-%Y %H:%M')%></small> </h4>
   </div>

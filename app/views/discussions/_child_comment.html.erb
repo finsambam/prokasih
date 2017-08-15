@@ -1,8 +1,33 @@
-<li class="child-comment <%= is_new ? 'new-comment' : '' %>">
-  <div class="clearfix">
-    <h4 class="pull-left"><%= child.name%> <small><i class="fa fa-share"></i> <%= comment.name%> <i class="fa fa-calendar-o"></i> <%= child.created_at.strftime('%d-%m-%Y %H:%M')%></small> </h4>
+<li class="child-comment <%= is_new ? 'new-comment' : '' %>" id="comment_<%= child.id %>">
+  <div class="well">
+    <div class="row">
+      <div class="col-md-9 col-xs-12">
+        <h4 class="pull-left"><%= child.name%> :</h4>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <h4><small style="float:right;"><i class="fa fa-pencil-square-o"></i> <%= child.created_at.strftime('%d-%m-%Y %H:%M')%></small></h4>
+      </div>
+    </div>
+    <div class="row comment-container">
+      <div class="col-md-12 col-xs-12">
+        <p style="padding-left:5px;">
+          <em id="messages_<%= child.id %>"><%= child.message%></em>
+        </p>
+      </div>
+      <div class="col-md-12 col-xs-12">
+        <p class="pull-left">
+          <!-- TODO: Change edit and remove fuction -->
+          <% if can? :update, Comment %>
+            <% if current_user.email == child.email %>
+              <%= link_to"<i class='fa fa-pencil'></i> Edit".html_safe, edit_discussion_path(child.id), :class => "btn btn-success btn-xs", :remote => true %>
+            <% end %>
+          <% end %>
+
+          <% if can? :destroy, Comment %>
+            <%= link_to "<i class='fa fa-trash'></i> Hapus".html_safe, discussion_url(child), :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete, :class => "btn btn-success btn-xs", :remote => true %>
+          <% end %>
+        </p>
+      </div>
+    </div>
   </div>
-  <p>
-    <em><%= child.message%></em>
-  </p>
 </li>

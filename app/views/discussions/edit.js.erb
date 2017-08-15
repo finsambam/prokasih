@@ -1,0 +1,2 @@
+window.scrollTo(0,document.body.scrollHeight);
+$('#commentForm').html("<%= escape_javascript render(:partial => 'form', :locals => { :is_create => false, :comment => @comment }) %>");

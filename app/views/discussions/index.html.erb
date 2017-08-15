@@ -1,4 +1,3 @@
-
 <div class="header-content">
   <h2 class="page-header">Diskusi</h2>
 </div>
@@ -23,28 +22,10 @@
   <div id="alert-reply" class="alert alert-success alert-dismissible fade in hide" role="alert">
     <p class="content"></p>
     <p><button id="backBtn" type="button" class="btn btn-default"><i class="fa fa-times"></i>Batal</button></p>
+  </div>
+  <div id="commentForm">
+    <%= render :partial => 'form', :locals => {:is_create => true} %>    
   </div>  
-  <h4>Tinggalkan pesan</h4>
-  <%= form_tag(discussions_path(format: :js), method: 'post', remote: true, class: 'clearfix') do %>
-    <div class="col-md-6 form-group">
-      <%= label_tag :name, "Nama", class: "sr-only" %>
-      <%= text_field_tag :name, current_user.present? ? current_user.name : nil, class: "form-control", placeholder: "Nama", :readonly => current_user.present? ? true : false %>
-    </div>
-    <div class="col-md-6 form-group">
-      <%= label_tag :email, "Email", class: "sr-only" %>
-      <%= text_field_tag :email, current_user.present? ? current_user.email : nil, class: "form-control", placeholder: "Email", :readonly => current_user.present? ? true : false %>
-    </div>
-    <div class="col-md-12 form-group">
-      <%= label_tag :message, "Pesan", class: "sr-only" %>
-      <%= text_area_tag :message, nil, class: "form-control", placeholder: "Pesan" %>
-    </div>
-    <div class="col-md-12 form-group text-right">
-      <%= hidden_field_tag 'parent_id'%>
-      <%= button_tag(type: "submit", class: "btn btn-success") do %>
-        <i class="fa fa-floppy-o"></i> Simpan
-      <% end %>
-    </div>
-  <% end %>
 </div>
 <script type="text/javascript">
   $(document).ready(function() {

@@ -295,13 +295,18 @@ a:hover{
  
 #comments>li {
   list-style: none;
-  border-bottom: 1px solid #BCF5A9;
+  /*border-bottom: 1px solid #BCF5A9;*/
   margin-bottom: 7px;
 }
 
 #comments>li h4 {
   font-weight: bolder;
 }
+
+.comment>.well, .child-comment>.well {
+  padding: 10px !important;
+  margin-bottom: 0 !important;
+} 
 
 /*#comments>li p.pull-right {
   color: #5cb85c;

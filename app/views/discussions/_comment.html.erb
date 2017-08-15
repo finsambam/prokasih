@@ -1,16 +1,42 @@
-<li class="comment <%= is_new ? 'new-comment' : '' %>" >
-  <div class="clearfix" style="padding-left:5px;">
-    <h4 class="pull-left"><%= comment.name%> <small><i class="fa fa-calendar-o"></i> <%= comment.created_at.strftime('%d-%m-%Y %H:%M')%></small></h4>
+<li class="comment" id="comment_<%= comment.id %>" >
+  <div class="well <%= is_new ? 'new-comment' : '' %>">
+    <div class="row">
+      <div class="col-md-10 col-xs-12">
+        <h4 class="pull-left"><%= comment.name%> :</h4>
+      </div>
+      <div class="col-md-2 col-xs-12">
+        <h4><small><i class="fa fa-pencil-square-o"></i> <%= comment.created_at.strftime('%d-%m-%Y %H:%M')%></small></h4>
+      </div>
+    </div>
+    <div class="row comment-container">
+      <div class="col-md-12 col-xs-12">
+        <p style="padding-left:5px;">
+          <em id="messages_<%= comment.id %>"><%= comment.message%></em>
+        </p>
+      </div>
+      <div class="col-md-12 col-xs-12">
+        <p class="pull-left">
+          <a class="reply-link btn btn-success btn-xs" href="#discussionForm" data-sender="<%= comment.name%>" data-comment-id="<%= comment.id%>" data-turbolinks="false"><i class="fa fa-reply"></i>Balas</a>
+          
+          <% if can? :update, Comment %>
+            <% if current_user.email == comment.email %>
+              <%= link_to"<i class='fa fa-pencil'></i> Edit".html_safe, edit_discussion_path(comment.id), :class => "btn btn-success btn-xs", :remote => true %>
+            <% end %>
+          <% end %>
+          
+          <% if can? :destroy, Comment %>
+            <%= link_to "<i class='fa fa-trash'></i> Hapus".html_safe, discussion_url(comment), :data => {:confirm => 'Apakah anda yakin?'}, :method => :delete, :class => "btn btn-success btn-xs", :remote => true %>
+          <% end %>
+        </p>
+      </div>
+    </div>
   </div>
-  <p style="padding-left:5px;">
-    <em><%= comment.message%></em>
-  </p>
-  <div class="clearfix" style="padding-left:5px;">
-    <p class="pull-left">
-      <a class="reply-link" href="#discussionForm" data-sender="<%= comment.name%>" data-comment-id="<%= comment.id%>" data-turbolinks="false">Balas</a>
-    </p>
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+      <a type="button" data-toggle="collapse" data-target="#<%= "child_comments_#{comment.id}" %>" aria-expanded="true" aria-controls="<%= "child_comments_#{comment.id}" %>" id="<%= "replies_button_#{comment.id}" %>" class="<%= "hide" unless comment.childs.any?  %>">Balasan</a>
+    </div>
   </div>
-  <ul id="<%= "child_comments_#{comment.id}" %>">
+  <ul class="collapse" id="<%= "child_comments_#{comment.id}" %>">
     <% if comment.childs.any? %>
       <% comment.childs.each do |child| %>
         <%= render :partial => 'child_comment', :locals => {:comment => comment, :child => child, :is_new => false} %>

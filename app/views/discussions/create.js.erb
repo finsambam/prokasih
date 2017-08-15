@@ -1,9 +1,12 @@
+$('html,body').animate({
+  scrollTop: 0
+}, 700);
 <% if (@response[:success]) %>
-  $('html,body').animate({
-    scrollTop: 0
-  }, 700);
   <% if (@comment.parent_id.present?) %>
     var item = $("<%= escape_javascript render(:partial => 'child_comment', :locals => { :comment => @comment.parent, :child => @comment, :is_new => 'true' }) %>").hide().fadeIn(1000);
+    if ($('#child_comments_<%= @comment.parent_id%> li').length == 0) {
+      $("#replies_button_<%=@comment.parent_id %>").removeClass('hide');
+    };
     $('#child_comments_<%= @comment.parent_id%>').prepend(item);
     $("#parent_id").val("");
     $("#alert-reply").addClass("hide");
@@ -18,5 +21,6 @@
   $("#discussionForm form").find("textarea").val("");
   $("#page-content").prepend('<div id="success-alert-discussion" class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Komentar telah berhasil disimpan</div>');
 <% else %>
-  alert(@response[:error])
+  var errors = $("<%= escape_javascript render(:partial => 'shared/error_messages', :locals => { :obj => @comment}) %>");
+  $("#page-content").prepend(errors);
 <% end %>

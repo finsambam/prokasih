@@ -54,7 +54,7 @@
                     </div>
                   <% else %>
                     <div class="input-group">
-                      <%= cp.text_field :value, class: "form-control", "aria-describedby" => "unit" %>
+                      <%= cp.number_field :value, class: "form-control", "aria-describedby" => "unit" %>
                       <span class="input-group-addon" id="unit"><%= param.unit %></span>
                     </div>
                   <%end%>

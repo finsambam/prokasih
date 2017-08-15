@@ -1,0 +1,11 @@
+$('html,body').animate({
+  scrollTop: 0
+}, 700);
+<% if (@response[:success]) %>
+  $("#comment_<%= @comment.id %> #messages_<%= @comment.id %>").html("<%= @comment.message %>");
+  $("#page-content").prepend('<div id="success-alert-discussion" class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Komentar telah berhasil disimpan</div>');
+<% else %>
+  var errors = $("<%= escape_javascript render(:partial => 'shared/error_messages', :locals => { :obj => @comment}) %>");
+  $("#page-content").prepend(errors);
+<% end %>
+$('#commentForm').html("<%= escape_javascript render(:partial => 'form', :locals => { :is_create => true }) %>");

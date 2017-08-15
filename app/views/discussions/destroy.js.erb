@@ -1,0 +1,7 @@
+var parentId = $('#comment_<%= @comment.id %>').closest('ul').attr('id');
+$('#comment_<%= @comment.id %>').remove();
+if (parentId == "child_comments_<%= @comment.parent_id %>") {
+	if ($('#'+ parentId + ' li').length == 0) {
+		$("#replies_button_<%=@comment.parent_id %>").addClass('hide');
+	};
+};

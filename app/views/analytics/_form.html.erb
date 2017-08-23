@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-8">
-            <%= link_to "<i class='fa fa-reply'></i> Batal".html_safe, { controller: "analytics", action: "index" }, class: "btn btn-default" %>
+            <%= link_to "<i class='fa fa-reply'></i> Batal".html_safe, { controller: "analytics", action: "index" }, :'data-turbolinks'=>'false', class: "btn btn-default" %>
             <a class="btn btn-success btnNext">Lanjut <i class='fa fa-share'></i></a>
           </div>
         </div>
@@ -97,7 +97,7 @@
     });
 
     // initialize datepicker
-    var dateElement = $('.datepicker').datepicker({
+    var dateElement = $('#period-datepicker').datepicker({
       format: "MM yyyy",
       startView: 1,
       minViewMode: 1,
@@ -109,15 +109,14 @@
       $('#analytic_period').val(e.date);
       $(e.target).datepicker("hide");
     });
-
+    
     initLocation();
-  
   });
 
   var initLocation = function(){
-    <% if @analytic.location.present?%>
-      $('.datepicker').datepicker('update', '<%= @analytic.period%>');
-    <% end %>
+    <% if @analytic.id.present?%>
+      $('.datepicker').datepicker('update', '<%= @analytic.period.strftime("%m-%Y") %>');
+    <% end %>  
   }
 
 </script>

@@ -30,7 +30,7 @@
   </tbody>
 </table>
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).on("turbolinks:load", function() {
     // init data table
     $('#analytic-table').DataTable({
       oLanguage: { sEmptyTable: "Data tidak ditemukan" },

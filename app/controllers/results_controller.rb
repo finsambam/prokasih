@@ -110,7 +110,8 @@ class ResultsController < ApplicationController
         render pdf: 'file_name',
                template: template,
                layout: 'layouts/pdf.html.erb',
-               javascript_delay: 1000
+               javascript_delay: 1000,
+               show_as_html: params.key?('debug')
       end
     end
   end

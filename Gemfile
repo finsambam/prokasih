@@ -45,6 +45,7 @@ gem 'cancancan', '~> 1.10'
 # Use wicked_pdf to generate PDF
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-heroku'
 
 # Use carrierwave for file upload
 gem "rmagick"

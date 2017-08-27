@@ -3,8 +3,17 @@
   <% @locations.each_with_index do |location, index| %> 
     <% my_url += "&markers=label:#{index+1}%7C#{location.latitude},#{location.longitude}" %>    
   <% end %>
+  <!-- <p><%#= my_url %><p/> -->
   <div class="card-block">
     <div id="map-static"><%= image_tag my_url %></div>
+  </div>
+  <div class="legend well">
+    <h4>Keterangan: </h4>
+    <ul>
+      <% @locations.each_with_index do |location, index| %> 
+        <li><%= "#{index+1}: #{location.code}, #{location.address}" %></li>
+      <% end %>
+    </ul>
   </div>
 <% else %>
   <%= render :partial => 'shared/no-data'%>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723154142) do
+ActiveRecord::Schema.define(version: 20170828231214) do
 
   create_table "analytic_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "analytic_id"
@@ -105,10 +105,10 @@ ActiveRecord::Schema.define(version: 20170723154142) do
     t.string   "river_name"
     t.string   "spot_name"
     t.string   "address"
-    t.float    "longitude",  limit: 24
-    t.float    "latitude",   limit: 24
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.decimal  "longitude",  precision: 15, scale: 8
+    t.decimal  "latitude",   precision: 15, scale: 8
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "parameter_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

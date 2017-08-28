@@ -15,17 +15,6 @@ class Location < ApplicationRecord
 
   scope :by_river_name, ->(name) { where(:river_name => name) }
   
-  # def get_code_prefix
-  #   case self[:river_name]
-  #   when "Sungai Gung Lama"
-  #     code_pref = "GL"
-  #   when "Sungai Sibelis"
-  #     code_pref = "SB"
-  #   when "Sungai Kemiri"
-  #     code_pref = "KM"
-  #   end
-  # end
-
   def generate_code
     code_pref = "";
     case self[:river_name]

@@ -1,7 +1,6 @@
 var ready = function() {
   var lat_field, lng_field, markers, placeMarkerAndPanTo, updateFields;
   var mapUrl = 'http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCOAyYfIrUNFcKuJ9yEJYjAQYxyNMB3xS0&libraries=places&callback=initialize';
-  
   markers = [];
   lat_field = $('#location_latitude');
   lng_field = $('#location_longitude');
@@ -98,6 +97,11 @@ var ready = function() {
         } else {
           bounds.extend(place.geometry.location);
         }
+
+        // Write latitude/longitude to field
+        lat_field.val(place.geometry.location.lat());
+        lng_field.val(place.geometry.location.lng());
+      
       });
       map.fitBounds(bounds);
     });

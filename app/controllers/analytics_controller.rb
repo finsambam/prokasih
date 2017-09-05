@@ -1,7 +1,7 @@
 class AnalyticsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_analytic, only: [:edit, :update, :destroy]
-  before_filter :init_data_option, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!
+  before_action :find_analytic, only: [:edit, :update, :destroy]
+  before_action :init_data_option, only: [:new, :create, :edit, :update]
   
   def index
     @analytics = Analytic.order('created_at DESC')

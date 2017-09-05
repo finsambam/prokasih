@@ -1,6 +1,6 @@
 class ParameterCategoriesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_parameter_category, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :find_parameter_category, only: [:edit, :update, :destroy]
   
   def index
     @parameter_categories = ParameterCategory.order('created_at DESC')

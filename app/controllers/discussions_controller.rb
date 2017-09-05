@@ -1,6 +1,6 @@
 class DiscussionsController < ApplicationController
-  before_filter :authenticate_user!, only: [:destroy]
-  before_filter :find_discussion, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:destroy]
+  before_action :find_discussion, only: [:edit, :update]
 
   def index
     session[:offset] = 0

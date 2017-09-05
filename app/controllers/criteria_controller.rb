@@ -1,7 +1,7 @@
 class CriteriaController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_criterium, only: [:edit, :update, :destroy]
-  before_filter :init_parameters, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!
+  before_action :find_criterium, only: [:edit, :update, :destroy]
+  before_action :init_parameters, only: [:new, :create, :edit, :update]
   
   def index
     @criteria = Criterium.order('created_at DESC')

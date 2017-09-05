@@ -1,6 +1,6 @@
 class DocumentationsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show, :get_json]
-  before_filter :find_documentation, only: [:edit, :update, :destroy, :show, :get_json]
+  before_action :authenticate_user!, except: [:index, :show, :get_json]
+  before_action :find_documentation, only: [:edit, :update, :destroy, :show, :get_json]
   
   def index
     @documentations = Documentation.not_article.paginate(:page => params[:page]).order('created_at DESC')    

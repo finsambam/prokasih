@@ -1,8 +1,8 @@
 class ParametersController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :get_parameter_categories, only: [:new, :create, :edit, :update]
-  before_filter :define_types, only: [:new, :create, :edit, :update]
-  before_filter :find_parameter, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :get_parameter_categories, only: [:new, :create, :edit, :update]
+  before_action :define_types, only: [:new, :create, :edit, :update]
+  before_action :find_parameter, only: [:edit, :update, :destroy]
   
   def index
     @parameters = Parameter.order('created_at DESC')

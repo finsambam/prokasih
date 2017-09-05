@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
-  before_filter :authenticate_user!
-	before_filter :find_location, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+	before_action :find_location, only: [:edit, :update, :destroy]
 
   def index
     @locations = Location.order('created_at DESC')

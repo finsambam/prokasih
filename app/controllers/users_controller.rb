@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :get_user, :only => [:index,:new,:edit]
-  before_filter :accessible_roles, :only => [:new, :edit, :show, :update, :create]
+  before_action :authenticate_user!
+  before_action :get_user, :only => [:index,:new,:edit]
+  before_action :accessible_roles, :only => [:new, :edit, :show, :update, :create]
   load_and_authorize_resource :only => [:show,:new,:destroy,:edit,:update]
  
   # GET /users

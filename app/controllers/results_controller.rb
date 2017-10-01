@@ -53,25 +53,28 @@ class ResultsController < ApplicationController
 
   def save_map_image_as_pdf
     @locations = Location.by_river_name(session[:location_params]["river_name"])
-    
+    filename = "peta analisa #{session[:params]['river_name']}"
     if @locations.any?
       save_download_information(params, "map_location")
     end
     
-    render_as_pdf('results/maps.pdf.erb')
+    render_as_pdf('results/maps.pdf.erb', filename)
   end
 
   def save_analytic_as_pdf
+    byebug
     @criteria = Criterium.all
     @selected_criterium = Criterium.find(session[:params]["criterium"])
     @parameter_categories = ParameterCategory.all
     @analytics = Analytic.by_river_name_and_period(session[:params]["river_name"], session[:params]["period_date"])
     
+    filename = "hasil analisa #{session[:params]['river_name']}-#{session[:params]['period_date'].to_date.strftime('%d-%m-%Y')}"
+    
     if @analytics.any?
-      save_download_information(params, "analytics")  
+      save_download_information(params, filename)  
     end
 
-    render_as_pdf('results/analytics.pdf.erb')
+    render_as_pdf('results/analytics.pdf.erb', filename)
   end
 
   def save_analytic_chart_as_pdf
@@ -85,11 +88,11 @@ class ResultsController < ApplicationController
     criterium_data = CriteriumParameter.chart_data(session[:chart]["parameter"], session[:chart]["criterium"], gon.locations.length)
     gon.data << criterium_data
     gon.unit = parameter.unit
-    
+    filename = "grafik analisa #{session[:chart]['parameter']}-#{session[:chart]['river']}-#{start_date.strftime('%d-%m-%Y')}-#{end_date.strftime('%d-%m-%Y')}"
     if gon.data.any?
       save_download_information(params, "analytic_chart")
     end
-    render_as_pdf('results/analytic_chart.pdf.erb')
+    render_as_pdf('results/analytic_chart.pdf.erb', filename)
   end
 
   private
@@ -104,10 +107,10 @@ class ResultsController < ApplicationController
     DownloadHistoryService.new(email, purpose_of_download, result_type).save_to_DB
   end
 
-  def render_as_pdf(template)
+  def render_as_pdf(template, filename)
     respond_to do |format|
       format.pdf do
-        render pdf: 'file_name',
+        render pdf: "#{filename}",
                template: template,
                layout: 'layouts/pdf.html.erb',
                javascript_delay: 1000,

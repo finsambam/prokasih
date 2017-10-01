@@ -1,10 +1,16 @@
 <div style="width:800px;height:800px">
   <canvas id="pdfChart" width="800" height="400"></canvas>
 </div>
+<% if Rails.env.development? %>
+  <%= wicked_pdf_javascript_include_tag "jquery" %>
+  <%= wicked_pdf_javascript_include_tag "jquery_ujs" %>
+  <%= wicked_pdf_javascript_include_tag "chart.js/dist/Chart.bundle" %>
+<% elsif Rails.env.production? %>
+  <%= javascript_include_tag "http://code.jquery.com/jquery-3.2.1.min.js" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.2/rails.js" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js" %>
+<%end%>
 
-<%= wicked_pdf_javascript_include_tag "jquery" %>
-<%= wicked_pdf_javascript_include_tag "jquery_ujs" %>
-<%= wicked_pdf_javascript_include_tag "chart.js/dist/Chart.bundle" %>
 
 <script type="text/javascript">
   $(function(){

@@ -62,7 +62,6 @@ class ResultsController < ApplicationController
   end
 
   def save_analytic_as_pdf
-    byebug
     @criteria = Criterium.all
     @selected_criterium = Criterium.find(session[:params]["criterium"])
     @parameter_categories = ParameterCategory.all

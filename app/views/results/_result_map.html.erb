@@ -1,5 +1,5 @@
 <% if (@locations.any?) %>
-  <% my_url = "http://maps.google.com/maps/api/staticmap?size=1200x1000&sensor=false&key=AIzaSyCzN_a36W-F0Upzt7h2uRT8stdLEzC-VIE" %>
+  <% my_url = "https://maps.google.com/maps/api/staticmap?size=1200x1000&sensor=false&key=AIzaSyCzN_a36W-F0Upzt7h2uRT8stdLEzC-VIE" %>
   <% @locations.each_with_index do |location, index| %> 
     <% my_url += "&markers=label:#{index+1}%7C#{location.latitude},#{location.longitude}" %>    
   <% end %>

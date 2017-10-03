@@ -26,6 +26,8 @@ module Prokasih
     # config.assets.precompile << %r(bootstrap-sass/assets/fonts/bootstrap/[\w-]+\.(?:eot|svg|ttf|woff2?)$)
     # # Minimum Sass number precision required by bootstrap-sass
     # ::Sass::Script::Value::Number.precision = [8, ::Sass::Script::Value::Number.precision].max
+    config.assets.precompile += ['bootstrap.css']
+    config.assets.precompile += ['pdf.css']
     config.assets.precompile << Proc.new { |path| path =~ /font-awesome\/fonts/ and File.extname(path).in?(['.otf', '.eot', '.svg', '.ttf', '.woff']) }
   end
 end

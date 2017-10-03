@@ -8,8 +8,10 @@
       <%= wicked_pdf_javascript_include_tag "jquery_ujs" %>
       <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
     <% elsif Rails.env.production? %>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-      <style type="text/css">
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" /> -->
+      <%= wicked_pdf_stylesheet_link_tag "bootstrap" -%>
+      <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+      <!--<style type="text/css">
         .red{
           color: red;
         }
@@ -33,7 +35,7 @@
         .header{
           text-align: center;
         }
-      </style>
+      </style>-->
       <%= javascript_include_tag "https://code.jquery.com/jquery-3.2.1.min.js" %>
       <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.2/rails.js" %>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

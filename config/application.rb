@@ -28,6 +28,7 @@ module Prokasih
     # ::Sass::Script::Value::Number.precision = [8, ::Sass::Script::Value::Number.precision].max
     config.assets.precompile += ['bootstrap.css']
     config.assets.precompile += ['pdf.css']
+    config.assets.precompile += ['jquery.js']
     config.assets.precompile << Proc.new { |path| path =~ /font-awesome\/fonts/ and File.extname(path).in?(['.otf', '.eot', '.svg', '.ttf', '.woff']) }
   end
 end
